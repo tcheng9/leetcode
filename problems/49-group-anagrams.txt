@@ -1,0 +1,49 @@
+I. Conceptual solution:
+1 solution: sort words algorithms and then see if they match 
+Time: (m, length of array, * nlogn, cost of sorting algo)
+
+2. neetcode solution:
+Steps to solution:
+1. Array of counts that count the characters for each words
+2. Use hashmap -> {key: array[counts for each letter]: [words that have matching count]}
+3. return hashmap.values() to return array
+
+Time: O(m * n * 26) -> O(m * n)
+m - total # of input strings
+n - avg length of a string
+26 - array of length of the count array 
+
+
+Edgecases:
+1. empty array -> example shows to just return an empty array
+2. array of all the same words / multiple duplicates -> does not explicitly answer via examples
+    However, if there were duplicates, you can just append the value in the dict values array
+    i.e {key: ['apple', 'apple', 'papel']}
+3. Array of large words -> i'm not sure how to answer this
+4. lowercase + uppercase words -> significant difference? -> no only lowercase words  
+    -> Potential answer: if there was upper and lowercase words, you could check the 
+    ASCII value and do the calculations of the array -> but more clunky due to:
+        -> array length of 52 and would have to add 26 by default to lowercase words to
+        fit in the right position
+5. Integers?
+    -> probably similar solution as edgecase 4 but more confusing as I'm not sure what their ASCII values are
+
+
+Thoughts: 
+1. I learned you CANNOT store a whole array into a hashmap's key 
+2. I learned about defaultdict(list) -> creates a hashmap with each value being an array
+-> does this do it for new values?
+3. ord('a') + [0]*26 -> hack to create your own letter counter essentially
+
+
+my solution:
+    dictionary = defaultdict(list) #you want the dictionary to be a collection of array values
+        for word in strs:
+            counts = [0]*26
+            for letter in word:
+                counts[ord(letter) - ord("a")] += 1
+            dictionary[tuple(counts)].append(word)
+
+        return dictionary.values()
+
+
