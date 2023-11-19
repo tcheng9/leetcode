@@ -1,0 +1,103 @@
+Conceptual solution:
+
+Potential solution 1: Brute force
+Soort array -> nlogn
+
+
+Potential solution 2: maxheap
+Time: O(n) + O(klogn) 
+-> klogn because you pop k timse from the  heap
+
+Optimal solution: Bucket sort
+1. array [index is the number, arr[i] -> # of times the value appears]
+ISSUE 1: array gets large when n is large SO step 1 doesn't work
+
+Solution to the issue:
+1. array index is the number of occurences, 
+->array[i] value is the numbers with that number of occurences
+->This solves the issue we have because the max number of occurences is the length of the array
+2. Once you count everything O(n)
+3. To get the top-k values, go from the end of the array and go down until you have 
+the required values
+
+4. use hashmap to help counts occurences of value
+
+
+
+Edgecases:
+1. No values
+2. All unique values -> ie all value occur only Once
+3. All values are the same value
+4. K is larger than len(n) -> get top 5 elements from only array of len 3?
+
+Questions: 
+1. how to get top k when multiple values exist in the same array index
+2. How to count the array for freq in O(n) time, not O(n^2) time?
+    Answer: Hashmap? (key -> array value : values -> frequency) 
+3. How to create an array of arrays?
+    Answer: Unclear if there is a built in method, I will iterate through arr and just add in an empty array of len(n)
+
+Steps:
+1. setup array
+2. setup hashmap
+3. Loop through array
+    3a. for each value in array, find in hashmap and add 1
+    3b. if not in hashmap, add it with .get() to avoid error
+4. Once loop is done, get dict.keys() and loop through again
+    4a. set empty array
+    4b. for each value in dict.keys(), append to arr[index]
+    4c. append to empty array
+
+5
+
+
+My solution:
+def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        counter = {}
+        arr = []
+
+        #adding empty arr to each array index
+        arr = []*len(nums)
+
+        #Adding counts to dictionary
+        for i in nums:
+            if i not in counter:
+                counter[i] = 1
+            else:
+                counter[i] += 1
+
+
+        #transposing from hashmap to store into an array that can be used to get top K elements
+        print(counters.keys(0)
+        # for j in counter.keys():
+        #     arr[counter[j]].append(j)
+
+        print(arr) 
+
+=============end======================
+Issue: couldn't figure out how to tranpose from the hashmap's key-value pairs to store into an array that could get top K elements 
+
+
+Learned:
+1. how to create my own array of a specific length -> arr = [] * length you want
+2. How to add to a dictionary if a value does or doesnt exist
+
+
+Solution code:
+count = {} 
+freq = [[] for i in range(len(nums) + 1)]
+
+for n in nums:
+    count[n] = 1 + count.get(n, 0) #-> this is how to quickly check if a value exist or not and add 0 or 1 without getting error
+
+for i in range(len(freq) - 1, 0, -1):
+    for n, c in counts.items(): #-> this is how you get both the key and value of a dict, i needed this
+        for n in freq[i]:
+            res.append(n)
+            if len(res) == k:
+                return res
+
+
+Questions from solution code:
+1. Not sure what the code solution when k = 2 and arr = [1,1,2,2,3,3] ->
+ is the solution array [1,2,3] or whatever the first 2 values you ie [1,2]?
