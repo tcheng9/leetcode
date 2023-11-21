@@ -1,0 +1,50 @@
+Conceptual solution:
+1. Check every single row using a hashset for each row
+2. Check every single column using a hashset for each column
+3. 3x3 Check 
+
+3x3 check code solution:
+1. 3x3 sub squares is an index ie (rows 0-2 is index 0)
+2. integer division by 3 -> (row/3, col/3)
+    2a. Note: integer division rounds down
+
+
+
+Note: Hashset -> cols = collections.defaultdict(set)
+
+
+
+Questions:
+1. Read hashset documentation to understand how to use basic operations
+1a. what is even a hashset?
+2. Read collections.defaultdict documentaiton -> neetcode uses this a lot and I don't understand what it is
+
+Key thing to understand:
+1. a grid is valid if it doesn't violate the duplicate rules. It is still valud EVEN IF IT unsolveable 
+
+Solution steps;
+0: create an array that holds a hashset for each row
+1. For each row, check if valid
+2. for each col, check if valid
+3. for each grid, check if valid
+4. If any are invalid, return false -> board not valid
+5. If that check if valid, add the values of that board[r][c] into the hashset col, row, grid
+6. Once the loop completes and it's completely valid, return true
+
+
+
+What I learned:
+Notes on collections.defaultdict(set):
+1. defaultdict creates dictionary that will create a new value for a key IF the key does not exist already
+This helps resolve KeyError exceptions when you try to reach a key that doesn't exist
+Note: I think dict.get() is a good substitute when using raw dicts as it gives u the operations
+of submitting a value if it exists and a value if it doesn't exist
+refer to: https://www.w3schools.com/python/ref_dictionary_get.asp
+
+
+so a set (initialize via "set()") creates a set that only accepts unique values -> ie {1,2,3,4,a,b}
+
+a collections.defaultdict(set) creates a dictionary where each value is a set 
+-> ie {0: {1,2,3}, 1: {a,b,c}, "a" {6,1 }}
+
+2. Tricks: divide by 3 for the grid so each 3x3 has its own index essentially
