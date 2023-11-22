@@ -1,0 +1,119 @@
+Constraint: Solution must be in O(n) time (and space?)
+
+Potential solution 1: Sort the array and count for longest consecutive sequence
+
+Optimal solution:
+1. Check if there is no left neighbor
+2. To do so, you convert the array into a set
+3. Check if values - 1 exist so you know that if it is the start of the sequence or not
+4. record each potential sequence EVEN if sequnece is only of len(1)
+5. Iterate through the array and record all sequences
+6. Get the longest sequence and the longest record of ints
+
+
+My conceptual solution: 
+Why can't you create an array of len(nums) and then for each index,
+place a 1 if a value exists 
+ie number is 100, go to arr[100] and do 1
+THEN you loop through the array (while recording index), count for 1s
+THEN compare the max len arr and indices against curr len arr and indices
+RETURN the longest len and max indices? 
+
+Time: O(n)
+Space: O(n)
+
+
+Questions:
+1. Just to refresh, what is bubble sort? How do I code it from scratch?
+2. WHAT IS POINT OF CHECKING NO LEFT NEIGHBOR? IS THERE A BETTER WAY?
+
+
+Edgecases:
+1. non negative numbers 
+2. Duplicate values count as a sequnce? -> ie 1,1,2,3 -> len(3) or len(4)?
+3. large numbers
+4. array of len(1)?
+
+
+Code steps:
+1. create an array to count actual values in a sequence
+1b. i think you need a max sequence array and a curr sequence array
+2. create an array to count indices?
+3. create my own set of the nums
+4. iterate through array (i =index, n = value at index i)
+5. check if n - 1 value exists in the set, 
+-> if not, you know this value is the start of a sequence
+(Question: do you start from the highest value and count donw until you can't?
+OR can you count from lowest value and count up (n+1)
+)
+6. store COUNTS (indices don't matter)
+
+
+
+2 parts to do essentially:
+1. figure out start of the sequence (S)
+2. Figure out if s + 1 exists to figure out len of that sequence 
+
+SO 2 for loops
+
+-- 
+for second loop, loop through the sequence starts and 
+while seq[i] + 1 exists, add it to currSeq
+compare curr with max seq
+return max sequence
+
+Question: given array of len (n)
+
+if a for loop nested with a while loop -> O(n) or O(n^2) time?
+
+=============================end=====================
+my solution:
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        maxSeq = []
+        currSeq = []
+        uniques = set(nums)
+        seqStarts = []
+        #for loop to get start of sequence
+        for i in range(len(nums)):
+            if (nums[i] - 1 not in uniques):
+                seqStarts.append(nums[i])
+
+            
+        print(seqStarts)
+        #for loop to figue out length of this sequence
+        
+        while 
+
+=============================================
+Neetcode solution
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        numSet = set(nums)
+        longest = 0
+        length = 0
+
+        for n in numSet:
+            if (n-1) not in numSet:
+                length = 1
+                while (n + length) in numSet:
+                    length += 1
+                longest = max(length, longest)
+
+        return longest
+
+
+==================
+Questions: 
+1. why is a for loop then while loop O(n) time, I thought it was O(n^2)
+
+2. Just a note, be clear about return values, I thought
+you had to track actual values (ie [5,6,7,8,9]), not just a count of len of array (i.e 5)
+
+
+
+
+
+
+
+Conclusion: I think this solution was very clear so not many quesitons. Just needed more than 25 mins to implement
