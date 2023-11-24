@@ -1,0 +1,69 @@
+Conceptual solution 1:
+1. compare start and end letters -> 2 pointer solution
+
+
+Questions: 
+1. How to check for alphanumeric characters?
+ANSWER: for alpabetic characters, you can use ord()
+for numeric characters, you can 
+2. how to make value lowercase? 
+ANSWER: str.lower() -> make the whole string lowercase
+3. How to skip non-alphanumeric numbers?
+if the letter is not within the lowercase bounds OR numbers bound, l or r +1
+
+
+
+
+Edgecases:
+1. all lowercase
+2. all uppercase
+3. all numbers
+4. all non-alphanumeric values
+5. No values -> palindrome or not a palindrome?
+
+Steps:
+1. init left pointer
+2. init right pointer
+3. while l < r THEN check condition
+4. if it is a number or or lowercase, check if ord(l) == ord(r)
+5. if l or r is not within the bounds THEN you skip l or r + 1
+6. IF l != r:
+    a. return false
+
+7. if while loop terminates (l >r ):
+    a. return true
+
+
+    ALPHANUMERIC CHECK:
+    
+Improvmeent:
+1. should have done a for loop to convert it into a single string of letters
+2. 
+
+
+Things I learned:
+1. str.lower() -> turns an entire string to lower case IGNORING symbols and numbers
+NOTE: not in place, need to set to a new var
+2. I should try to figure out the core parts of a solution then code the core piece by piece:
+    ANSWER: I should have 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+========================================================================
+Conceptual solution 2:
+
+
