@@ -1,0 +1,159 @@
+I. Understanding question:
+----------------------------------------------------------------------
+Question:
+1. As you check triplets, how to avoid repeated triplets (ie i = 1, j = 2, k = 3)?
+    ANSWER: having remembered some of this solutoin, I would say you use a for loop nested with a 2 pointer while loop
+2. Does it count as a duplicate if you have a triplet that's the same but in differetn order?
+    ANSWER: Yes, this counts a duplicate.
+    a. Answers should use a SET to store unique values
+
+Edgecase:
+1. len(arr) < 2 
+2. array of all same values  -> [1,1,1,1,1,1,1]
+3. array of all negative numbers -> calculation concerns
+4. No values come out to 0
+5. All values come out to 0
+6. Non-integer values to ignore?
+7. 
+
+
+Return output (since i'm bad at getting this right): 
+    a. Return all triplets that add up to 0
+    b. Cannot use the same index for all 3 indices (i,j,k)
+
+-----------------------------------------------------------
+
+II. Conceptual solutions:
+
+Brute force solution:
+
+1. Triple for loops
+
+ISSUE: 
+1. we run into duplicates as the values BECAUSE order doesn't matter
+    a. solution: sort array
+
+Optimized solution:
+1. sort array
+2. Double for loop
+3. first for loop to iterate through array
+4. second for loop to do 2 pointers
+
+
+
+---------------------------------------------------------------------------------------------
+III. Implementing thoughts
+
+Implementation steps:
+1. implement return array
+2. sort array
+3. for loop to go through array
+4. while loop to do 2 pointers
+    4a. in the 2 pointers, 
+
+
+
+
+
+Implementation questions:
+1. How to check if i, l ,r are duplicate positions?
+    QUESTION: ie nums = [1,1,2,2,3,3] and i = 0, l = 1, r = 5
+    a. if nums[i] == nums[i + 1] -> i += 1
+    b. if nums[l] == nums[l + 1] -> j += 1
+    c. if nums[r] == nums[r-1] -> nums -= 1
+
+    QUESTION: However, if nums =[1,1,1,1,1,1,3] THEN what?
+    a. 
+
+
+Thoughts:
+1. Why can't you remove the sorting by using a set instead to store all  duplicate values?
+    ANSWER: extra memory used? as optimized solution might only be O(1) memory
+    a. Note: O(n) memory might be used depending on the sorting algo used
+
+
+
+--------------------------
+IV. Code solutions
+
+My solution:
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        #setting up 2 pointers
+        l = 1
+        r = len(nums) - 1
+
+        #sorting array
+        nums.sort()
+
+
+        #get all triplet combinations   
+        for i in range(len(nums)-2):
+            #Check if ith value == ith+1 value 
+            if(nums[i] == nums[i+1]):
+                i += 1
+            
+            while (l < r):
+                
+                if(nums[l] == nums[l+1]):
+                    l += 1
+
+                if(nums[r] == nums[r-1]):
+                    r -= 1
+
+                if (nums[i] + nums[l] + nums[r] == 0):
+                    res.append([i,l,r])
+                elif (nums[i] + nums[l] + nums[r] > 0):
+                    r -= 1
+                else:
+                    l += 1
+
+        return res
+
+
+Neetcode solution: 
+class Solution: 
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        nums.sort()
+
+        for i, a in enumerate(nums):
+            #check for if Ith value is a duplicate
+            if (i > 0 and a == nums[i- 1]):
+                i += 1
+            
+            #init 2 pointers
+            l = i+1
+            r = len(nums) - 1
+            while l <r:
+                threeSum = a + nums[l] + nums[r]
+
+                if (threeSum > 0):
+                    r -=1
+                elif (threeSum < 0):
+                    l += 1
+                ###most complicated part -> if sum(triplet) == 0
+                else:
+                    res.append([a, nums[l], nums[r]])
+
+                    l += 1 #Note: this l += 1 is just to update to the next value
+                    while (nums[l] == nums[l -1] and l <r):
+                        l += 1 #Note: this l += 1 is to check if l and l-1 are duplicate values
+
+        return res
+-----------------------------------------------
+
+
+V.  Summary
+
+
+Lingering questions:
+#QUESTION: why just l and not r as well in the lines 142 -> 144?
+#ANSWER: BECAUSE the change in just l or r will re-trigger the IF conditions check
+
+Things I learned:
+1. Always consider sorting the array first
+2. Need to review sorting algorithms -> time complexiitys AND implementation
+3. What is enumerate?
