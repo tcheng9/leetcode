@@ -1,1 +1,22 @@
-placeholder
+Template to structure my notes:
+
+
+I. Understanding question
+----------------------------------------------
+
+
+II. Conceptual Solution
+-----------------------------------------------
+
+III. Implementation
+-----------------------------------------------
+
+
+IV. Code solutions
+-----------------------------------------------
+
+
+
+
+V. Summary
+-----------------------------------------------

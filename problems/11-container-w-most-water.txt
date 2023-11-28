@@ -1,0 +1,60 @@
+I. Understanding question
+----------------------------------------------
+a. Understand that you want the min of the 2 heights -> water will always pour out the lower side (height 1 = 1 but height2 = 1000, max water will still be 1x1)
+b. brute force: try all possible combinations
+    1. O(n^2) -> runtime error
+
+
+
+II. Conceptual Solution
+-----------------------------------------------
+Brute force:
+    a. try all possible combiantions of i and j 
+    b. issue
+
+Optimal solution:
+    a. Limiting factor is the min height of a l and r pointer
+    b. so calculate max area for each l and r THEN update min(l,r)
+    c. Edgecase: nums[l] == nums[r] -> do l+=1 or r +=1,doesn't matter
+
+
+III. Implementation
+-----------------------------------------------
+Implementation steps:
+1. init max_area
+2. init l and r
+3. while l <r:
+    a. calc max area each time 
+        i. if curr_area > max_area THEN max_area = curr_area
+    b. if conditionals 
+        i. if l > r THEN l+=1
+        ii. if l < r THEN r -= 1
+        iii. if l == r THEN adjust l or r, i'll do l+=1
+        iv. note: i'm saying l and r in the condiitonals but it is actually arr[l] and arr[r] values that you need to check
+
+    
+4. return max_area
+IV. Code solutions
+-----------------------------------------------
+max_area = 0
+        l = 0
+        r = len(height) - 1
+
+        while l < r:
+            curr_area = (r-l) * min(height[l], height[r])
+            if (curr_area > max_area):
+                max_area = curr_area
+
+            if (height[l] > height[r]):
+                r -= 1
+            elif (height[l] < height[r]):
+                l += 1
+            else:
+                l += 1
+        return max_area
+
+
+
+V. Summary
+-----------------------------------------------
+1. Didn't learn much. Having done this problem before I just kindof remember the solution
