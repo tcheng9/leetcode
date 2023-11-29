@@ -1,0 +1,32 @@
+I. Conceptual Solution
+-----------------------------------------------
+
+O(n) time and O(n) MEMORY solution:
+1. for each index, calculate the max left and right height
+2. then get min of l,r for each index as that is the side that can trap the most water.
+    a. water spills out so no matter how much you pour to get the bigger height, it'll spill out the smaller height
+3. from there, iterate through and calculate max water 
+    a. calculation: min(l,r) - h[i]
+
+Without looking at the solution, how to optimize for O(1) memory?
+1. probably with a left and right pointer
+2. maxLeft pointer w/o array can be found by:
+    a. compare curr max L and l - 1 (note: never itself because max left height can't be itself)
+3. maxRight pointer is proobably a similar property
+4. calculation stays the same?
+
+
+Neetcode's O(1) memory solution:
+1. Use 2 pointers, not (multiple) arrays
+2. max L and max R pointer so far
+3. max L = 0, max_R = 0, len(arr) - 1
+QUESTION: why can you start max_R at the end of the array? 
+(cont.) issue of some value between index 0 and len(arr) - 1 where max_R could be greater than the position at 
+len(arr) - 1
+
+ie [0,1,0,2,10, 0 1] -> if l = 0 (and it's arr[l] = 0 and r = len(nums) - 1 (and its value is arr[r] = 1) doesn't it matter that 10 is inbetween the 2 values
+
+ANSWER: we onlycare about the min height of l and r BECAUSE water will always pour out the smaller side.
+
+3. shift the lower value of max l and max r correspondingly (l+=1, r -=1)
+UNSURE. I need to run through some examples/calculations on paper

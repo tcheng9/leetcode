@@ -1,22 +1,16 @@
 Template to structure my notes:
-
-
-I. Understanding question
-----------------------------------------------
-
-
-II. Conceptual Solution
+I. Conceptual Solution
 -----------------------------------------------
 
-III. Implementation
+II. Implementation
 -----------------------------------------------
 
 
-IV. Code solutions
+III. Code solutions
 -----------------------------------------------
 
 
 
 
-V. Summary
+IV. Summary
 -----------------------------------------------
