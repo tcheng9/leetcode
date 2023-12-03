@@ -1,0 +1,48 @@
+Template to structure my notes:
+I. Conceptual Solution
+-----------------------------------------------
+1. Use 2 pointers
+2. track max profit (and probably buy/sell)
+3. update L to lower value -> if l > r -> l = r and r +=1
+4. don't need to update l until you find a smaller L
+5. calculation = arr[r] - arr[l]
+6. while r <= len(nums):
+
+
+
+II. Implementation
+-----------------------------------------------
+Edgecases:
+
+Question: what is the calculation? if arr[l] > arr[r], meaning negative/0 profit what should I do?
+A: just update l = r and r += 1, since it's negative, no need to calc profit
+
+if arr[l] < arr[r]:
+    a. calculate profit
+
+
+III. Code solutions
+-----------------------------------------------
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        l = 0
+        r = 1
+        max_profit = 0
+        
+        while (r < len(prices)):
+            if (prices[l] > prices[r]):
+                l = r
+            else:
+                curr_profit = prices[r] - prices[l]
+                max_profit = max(max_profit, curr_profit)
+              
+                
+            r += 1
+        return max_profit
+
+    
+
+
+IV. Summary
+-----------------------------------------------

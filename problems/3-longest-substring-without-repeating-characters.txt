@@ -1,0 +1,95 @@
+Template to structure my notes:
+I. Conceptual Solution
+-----------------------------------------------
+1. Use sliding window
+2. Use a set for finding duplicates
+3. when you update l, you need to remove it from the set
+    a. remove from set AND remove from sliding window
+4. RETURN output is length of max string, not the max sring itself
+
+II. Implementation
+-----------------------------------------------
+Edgecases:
+1. string of all different letters
+2. string of all duplicate values
+3. string of length 1?
+
+Implementation steps:
+1. set l,r
+2. create a set() to store string w/ s[0] / s[l] in it already 
+2a. create a max_length to return
+3. handle edge case if len(s) == 1
+4. while r < len(sting) - 1 #is it r < len(string) or r <= len(string) - 1
+    a. get curr_length of set
+    b. try to add s[r] into the set
+        i. if r in set:
+            1. remove s[l] from the set
+            2. increment l and r
+        ii. if r is not in set:
+            1. add l to set
+            2. increase curr_length
+
+    c. update max_length if needed -> max(max_length, curr_length)
+    d. r++
+5. return max_length
+
+III. Code solutions
+-----------------------------------------------
+
+My solution:
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if (len(s) == 0):
+            return 0
+        if (len(s) == 1):
+            return 1
+        l,r = 0, 1
+        max_length = 1
+        curr_str = set(s[0])
+    
+        while r < len(s):
+            
+            if s[r] not in curr_str:
+                curr_str.add(s[r])
+                
+                
+            else:
+                curr_str.discard(s[l])
+                l+=1
+            max_length = max(max_length, len(curr_str))
+            r+=1
+
+        return max_length
+
+            
+
+Conclusion: doesn't solve the leetcode problem
+
+
+Neetcode solution:
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        charSet = set()
+        l = 0
+        res = 0
+
+        for r in range(len(s)):
+            while s[r] in charSet:
+                charSet.remove(s[l])
+                l += 1
+            charSet.add(s[r])
+            res = max(res, r - l + 1)
+        return res
+
+
+IV. Summary
+-----------------------------------------------
+
+
+Follow ups:
+1. Review set() documentation
+2. Need to remember to add 1 to my output -> sliding window uses r = len(r) -1
+BECAUSE of 0-indexed vs. 1-indexed
+3. Why did I need a for-loop THEN while-loop, why not just while loop?
+    ANSWER: need to run through actual calcuiations/example

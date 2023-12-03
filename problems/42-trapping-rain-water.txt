@@ -30,3 +30,9 @@ ANSWER: we onlycare about the min height of l and r BECAUSE water will always po
 
 3. shift the lower value of max l and max r correspondingly (l+=1, r -=1)
 UNSURE. I need to run through some examples/calculations on paper
+
+Question: why does the height[i] matter?
+answer: i think max l, r tells you how much potential water can be filled at index l/R before it spills out
+height[i/current index] tells you how much water will be pushed out because of its height
+
+Summary: maybe 6 blocks of water can be fall into the current index BUT because height[i] is 5, physically it pushes out 6-5 blocks of water = 1 block of water can actually be filled

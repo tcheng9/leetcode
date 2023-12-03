@@ -1,0 +1,88 @@
+Template to structure my notes:
+I. Conceptual Solution
+-----------------------------------------------
+1. Use a hashmap to get a frequency count
+2. windowLen - count[B] = # of characters we need to replace to get all the same letter 
+3. From the calculation, we check if # of replacement needed <= k possible replacements
+
+Brute force: 
+1. check each letter using sliding window check
+2. how do we know which letter is most frequent -> O(26) for loop check 
+3.  Slide window when the condition: current_replacements <= K is NOT VALID
+    a. while not valid 
+        i. l += 1 
+        ii. k-= 1
+    b. 
+
+---
+Note: Use array to keep track of current letter counts
+
+
+Optimal:
+Avoids looking at the array
+1. variable max frequency 
+
+Question: what about updating max F when we update counts and decrement valuse (B = 3 -> B = 2)
+
+still O(26) calculation
+
+However, you ACTUALLY DON'T HAVE TO decrement maxFrequency (which causes it not to be O(26)) time. 
+BECAUSE the answer is maxF, we don't have to update max_freq when another letter is mosre freq than max_F
+Don't have to track when maxF goes lower, only when it goes higher
+
+checking max value in an array is O(1) optimization
+
+
+
+
+II. Implementation
+-----------------------------------------------
+O(26n) solution
+
+Edgecase:
+1. all same letters
+2. Does string include lowercase, numerical, symbols?
+3. No letters are the same
+4. K = 0
+5. 
+
+
+Implementation:
+1. create a hashmap or array to track each letter
+2. set res = 0
+3. set l and r = 0, and 1
+4. curr_replacements = 0
+5. for each i in range(len(s)) -> #QUESTION: is this needed?
+5. while l < r and curr_replacements <k :
+    #How to figure out which letter is more frequent?
+    a. Expanding R only
+        i. 
+    b. expanding L
+
+
+Implementaition questions:
+1. How to figure out which letter is more frequent? in each iteration
+    A: 
+        a. max(dict.values()) -> this is the max count for the current sliding window, it doesn't matter which letter exactly
+        b. we only care about the max length of string and the max freq of current sliding window, letters actualy do't matter
+
+2. Why do you need a for loop then a while loop?
+    A: You need a for loop to check through each value THEN the while loop does the sliding window check starting from each index
+
+
+Formula for figuring out how many k replacements are needed:
+1. (r-l+1) - max(counts.values()) = how many letter replacements are needed
+
+To optimize from O(26) -> O(1) 
+maxF = max(maxf, count[s[s]]) then you can use that to replace "max(counts.values())" from the formula
+
+III. Code solutions
+-----------------------------------------------
+
+
+
+
+
+IV. Summary
+-----------------------------------------------
+1. remember to use dict.get(value, value if key not found)
