@@ -1,0 +1,129 @@
+Template to structure my notes:
+I. Conceptual Solution
+-----------------------------------------------
+A.Initial thoughts on a solution:
+1. Can you get a count of the letters of s1 THEN run a sliding window of length s1 to check for any matches?
+(Potential Solution time/space = O(n) and O(n) I think)
+
+Question: Can I optimize to O(1) space?
+Answer: Maybe you could use a set and check if letter NOT IN set THEN return t/f. 
+
+Question: what is the time complexity of set add/remove?
+Answer:
+'''
+Set is impelemnted as a hashtable SO lookup/insert/delete is O(1)
+Add/delete is O(1) average case, O(n) worst case
+However,large sets is O(n) due to collision possibility
+src: https://wiki.python.org/moin/TimeComplexity 
+'''
+
+
+
+B. Neetcode conceptual solution:
+    2 solutions - O(26*n) and O(n) solutions
+
+C. O(26*n) solution:
+    1. similar to is anagram, look for freq of values
+    2. Use a hashmap (O(26)) look up time
+    3. compare 2 hashmaps
+
+
+D. O(n) solution
+II. Implementation
+-----------------------------------------------
+O(26*n) solution
+    a. create 2 hashmaps (hashmap of s1 and hashmap of s2)
+    b. create a sliding window of len(s1)
+    c. First hashmap gets freq counts of s1
+    d. Second hashmap gets freq of sliding window
+    e. if hashmap-s1 == hashmap-s2 RETURN true (contains permutation in string)
+    f. if not equal:
+        i. l += 1
+        2. s2[l] decreases by 1 -> hashmap-s2[s2] -= 1 
+        3. r increases by 1
+        4. add r to dict -> hashmap-s2.get(s2[r], 1)
+    g. if for loop terminates -> return false
+
+Implementation questions:
+Q1. How to use .get() to get the value in a dict and add 1 to it
+Answer: hashmap_s1[i] = 1 + hashmap_s1.get(i, 0)
+
+Q2. How to compare 2 hashmaps?
+Answer: can just compare directly via "hashmap1 == hashmap2" 
+
+Q3. How to implement right pointer?
+Answer: while hashmap_s1 != hashmap_s2 AND l -r <= len(s1)
+
+Second hashmap gets freq of sliding window - breaking down into further steps:
+1. l = 0
+2. r = 0 -> #maybe do a for loop to get all values from l -> r
+3. For loop from r = 0 to r = len(s1) - 1 -> sets up initial freq count from 0 to len(s1)
+
+4. if conditial:
+    a. if hashmap_s1 == hashmap_s2: return true 
+    b. if hashmap_s1 != hashmap_s2
+        i. hashmap_s2[s2[l]] - 1 -> decremnt the letter at position l
+
+        ii.  l += 1 -> slide l by 1
+
+        ii. hashmap_s2[s2[r]] -> add new letter r and increment
+        iv. r += 1
+
+
+Q4. How to remove the KEY from a dictionary?
+Answer: dict.pop(value)
+
+III. Code solutions
+-----------------------------------------------
+my best guess for O(26n) solution:
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        hashmap_s1 = {}
+        hashmap_s2 = {}
+        
+        #get freq counts of s1
+        for i in s1:
+            hashmap_s1[i] = 1 + hashmap_s1.get(i, 0)
+        
+
+        #setting up hashmap-s2 to have l -> r values
+        l = 0
+        r = 0
+        while r < len(s1):
+            hashmap_s2[s2[r]] = 1 + hashmap_s2.get(s2[r], 0)
+            r += 1
+        
+        #sliding window to compare s1 and s2 hashamps
+        
+
+
+        for i in range(len(s2)):
+            
+            while (r <= (len(s2) - len(s1))):
+                
+                if (hashmap_s1 == hashmap_s2):
+                    # return True
+                    print('true')
+                else:
+                    if ((hashmap_s2[s2[l]] - 1) == 0 ):
+                        hashmap_s2.pop(s2[l])
+                    else:
+                        hashmap_s2[s2[l]] -= 1  
+                    l += 1
+
+                    hashmap_s2[s2[r]] = 1 + hashmap_s2.get(s2[r], 0)        
+                    r += 1
+
+
+        # return False
+                    
+Issue: sliding window doesn't reach inner-while loop
+
+
+IV. Summary
+-----------------------------------------------
+
+Thoughts:
+1. I should bring pen and paper to actually write out code output for my actual code Implementation
+2. Neetcode only shows O(n) time solution, I tried to implement O(26n).
+
