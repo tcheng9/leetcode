@@ -1,0 +1,61 @@
+Template to structure my notes:
+I. Conceptual Solution
+-----------------------------------------------
+Brute force solution:
+1. use 2 hashmaps, compare sliding window to the a table/hashmap for string t (T-table)
+!!!!!NOTE: THE BRUTE FORCE IS LITERALLY THE TO "567. PERMUTATION IN STRING"
+2. Window needs each letter to be >= to T-table 
+3. If window != T_table, slide window BUT
+UNIQUELY, you need to check if the letter you add in the sliding window is in the T_table First
+
+issue: repeated work checking letters of sliding window matches T_table
+4. track length of curr_match_string to min_len_string
+
+Linear time solution:
+1. Use a Have/Need count variable -> OPTMIZATION BECAUSE YOU DON'T NEED TO CHECK THE TABLE EVERYTIME
+2. Other operation you need is to check the new sliding window value (arr[r]) in the 2 tables
+BUT this is O(1) time so step 1 is O(1) and this is O(1) so better optimization than brute force
+3.  Once you have a match, slide the window by default (you don't want to keep searching for a longer string since we want min length)
+
+
+
+
+II. Implementation
+-----------------------------------------------
+Didn't have tme to implement within 25 mins 
+Note for future me: hard problems, I need to commit 1 hr to doing them but right now I can only fit in 25 mins so not sure what to do exactly.
+
+Edgecase:
+1. empty string -> return empty string
+
+III. Code solutions
+-----------------------------------------------
+if t == "": return ""
+
+countT, window = {}, {}
+
+for c in t:
+    countT[c] = 1 + count.get(c, 0)
+
+have, need = 0, len(countT)
+res, resLen = [-1,-1], float('infinity')
+for r in range(len(s)):
+    c = s[r]
+    window[c] = 1 + window.get(c,0)
+
+    if c in countT and window[c] == countT[c]:
+        have += 1
+    while have == need:
+        if (r-l+1) < resLen:
+            res = [1,r]
+            resLen  (r-l+1)
+
+            windows[s[l]] -= 1
+        if s[l] in countT and window[s[l]] <countT[s[l]]:
+            have -= 1
+        l += 1
+    l, r = res, resLen
+    return s[l:r+1] if resLen != float('infinity') else ""
+
+IV. Summary
+-----------------------------------------------

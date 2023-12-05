@@ -1,3 +1,5 @@
+12/4/23
+
 Template to structure my notes:
 I. Conceptual Solution
 -----------------------------------------------
@@ -127,3 +129,12 @@ Thoughts:
 1. I should bring pen and paper to actually write out code output for my actual code Implementation
 2. Neetcode only shows O(n) time solution, I tried to implement O(26n).
 
+
+
+REFLECTION THEN NEXT DAY:
+Ohhhhhhhh, my sliding window should have been checking (R)ight pointer, not (L)eft pointer. R is the only that will go out of bounds first
+...I think
+
+maybe not, my code is "l <= (len(s2) - len(s1))" so this should have the correct bounds..
+
+R-L+1 -> maybe this is correct boundary check?
