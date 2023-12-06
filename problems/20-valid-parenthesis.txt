@@ -1,0 +1,75 @@
+Template to structure my notes:
+I. Conceptual Solution
+-----------------------------------------------
+1. Use a hashmap to easily get corresponding bracket ( (-> ), { -> }, [ -> ])
+2. I'm not sure how to use a stack to solve this problem. 
+    -> Solution: You add the opening parethesis to the stack. 
+    a. When you encounter a closing parthesiss, you somehow check for if the value corresponds
+    b. OHHHH, 2a is actually wrong. You want to use the closing parenthesis as the key of the dict, opening as the value
+        i. So you continue to add opening parenthesis to the stack THEN when you have a closing parentehssi, you check if 
+        ii. if dict[closing_parenthesis] == top_of stack:
+            1. pop off the stack and continue iterating
+        iii. if dict[closing_parentehsis] != top_of_stack:
+            1. return false
+
+    c. if for loop finishes, return true
+
+II. Implementation
+-----------------------------------------------
+1. create a stack
+2. create a hashmap with corresponding values
+3. for loop through arr
+    a. Check if opening or closing bracket -> you could do if arr[i] in/not in dict.keys()
+        i. time complexity of dict.keys()?
+    b. if closing bracket, check top of stack vs. dict[closing_bracket]
+    c. if opening bracket, add val to stack only
+
+
+    What about ({{{()}}})
+
+III. Code solutions
+-----------------------------------------------
+My code solution:
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        dict_ = {
+            "}" : "{",
+            "]": "[",
+            ")":"("
+        }
+
+        for i in range(len(s)):
+          
+          if s[i] in dict_.keys():
+            if(dict[s[i]] == stack[-1]):
+              stack.pop()
+            else:
+              return False
+          else:
+            stack.append(s[i])
+        return True
+
+Conclusion: not working
+
+
+Neetcode solution
+class Solution:
+    def isValid(self, s: str) -> bool:
+        Map = {")": "(", "]": "[", "}": "{"}
+        stack = []
+
+        for c in s:
+            if c not in Map:
+                stack.append(c)
+                continue
+            if not stack or stack[-1] != Map[c]:
+                return False
+            stack.pop()
+
+        return not stack
+
+
+IV. Summary
+-----------------------------------------------
+Conclusion: learn more about how to use stacks within python.
