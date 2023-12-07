@@ -1,0 +1,67 @@
+Template to structure my notes:
+I. Conceptual Solution
+-----------------------------------------------
+Note: constant time solution requirement (can't just sort input)
+1. Oohh i don't know how to implement a class. Should read documentaiton
+Answer: actually I can implement the stack -> it's just using python built in methods
+
+However, now, the hard part is getting the min element in the stack
+
+My conceptual solution thoughts:
+1. why can't u just
+
+ie [-2, 5, -3, 2]
+stack = -2 
+minStack = -2 
+
+stack = 5
+5 < minstack? No -> THEN provide the min value?
+
+Is this a constant time solution? O([1])!
+
+
+II. Implementation
+-----------------------------------------------
+class MinStack:
+
+    def __init__(self):
+        self.stack = []
+        self.minStack = []
+
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        if (self.minStack):
+            val = min(self.minStack[-1], val)
+    
+        self.minStack.append(val)
+
+    def pop(self) -> None:
+        self.stack.pop()
+        self.minStack.pop()
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.minStack[-1]        
+
+
+
+III. Code solutions
+-----------------------------------------------
+
+
+
+
+IV. Summary
+-----------------------------------------------
+
+Takeaways:
+1. read up on how classes work in python so I can create my own code solutions
+2. IN CODING, YOU NEED TO CHECK IF THE STACK IS EMPTY OR NOT. THAT IS A CONDITION THAT COMES up
+LUCKILY, IF STACK IS EMPTY, IT COMES UP AS FALSE. IF A STACK HAS VALUES, IT COMES UP AS TRUE
+
+
+3. I actually solved about 80% of this problem on my own. Dealing with edge case was confusing.
+Need to start writing conditionals that target the more conditional cases, not the generic ones so i don't confuse myself as muhc
+
+
