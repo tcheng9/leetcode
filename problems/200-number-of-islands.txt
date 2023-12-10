@@ -1,0 +1,157 @@
+I. Conceptual Solution
+-----------------------------------------------
+Do a BFS on the array -> basically a basic implement raw algo idea
+
+Steps:
+1. visited set
+2. check up, down, left, right
+3. recursively check
+QUESTION: what is the termination condition?
+4. Break this into 2 parts: actually algo and then the recursive/repetitive Code
+
+
+Part 1; Algo solution:
+
+
+Part 2 - recursive:
+1. parameters are a set of coordinate (i+1, j+1, i - 1, j - 1)
+2. if out of boudnds OR already visited SET: return
+3. if not out of bounds: 
+
+
+QUESTION: what is the condition to count an island (an island is a collection of ones)
+1. Track with a set of current island
+
+Template DFS code:
+
+def dfs(visited, graph, node):
+    if node not in visited:
+        visited.add(node)
+        for neighbor in graph[node]:
+            dfs(visited, graph, neighbor)
+        -> for me, it would be 4 pairs of coordinates (i+1, i-1, j-1, )
+
+
+II. Implementation
+-----------------------------------------------
+Part 1: Main algo
+1. create visited set
+    Question: can a visited set store array pair([1,2])?
+    ANSWER: No, store a (1,2) instead
+
+2. current_island_coordinates set
+3. for i in range(rows):
+    4. for j in range(cols):
+        if (dfs(row+1))
+
+
+Part 2: recursive algo:
+
+
+
+Edgecases:
+1. empty grid -> if not grid: return 0
+2. Do diagonal 1s count as a connected island? 
+III. Code solutions
+-----------------------------------------------
+My solution:
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        islands = 0
+        current_island = set()
+        visited = set()
+        col = len(grid[0])
+        row = len(grid)
+        for r in row:
+            for c in col:
+                    dfs()
+
+    def dfs(grid, visited, current_island, r,c)
+        if grid[r,c] not in visited:
+            
+
+
+Neetcode solution:
+
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid or not grid[0]:
+            return 0
+
+        islands = 0
+        visit = set()
+        rows, cols = len(grid), len(grid[0])
+
+        
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == "1" and (r, c) not in visit:  -> #Only check "1"s, no need to recurisve check for island at 0 because it would pop up after 1 recursive check
+                    islands += 1 #you can add 1 to the island counter THEN just recursively check for how big it is without adding a count there -> easier
+                    dfs(r, c) #track all coordinates of the existing island
+
+
+        def dfs(r, c):
+            '''
+            conditions to check for: 
+            1. not a 0 -> unique condition to this quesitom
+            2. r,c not in visited -> staple condition
+            3. r and c are not out of bounds -> staple  condition
+
+            '''
+            if (
+                r not in range(rows)
+                or c not in range(cols)
+                or grid[r][c] == "0"
+                or (r, c) in visit
+            ):
+
+            #
+
+                return -> pop back up
+
+            visit.add((r, c)) # add to set
+            directions = [[0, 1], [0, -1], [1, 0], [-1, 0]] #check all 4 directions 
+            for dr, dc in directions: #dfs with all 4 coordinates -> interesting a for loop is used here
+                dfs(r + dr, c + dc)
+
+        return islands
+
+As best as Icould get after reviewing solution:
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        islands = 0
+        
+        visited = set()
+        col = len(grid[0])
+        row = len(grid)
+        
+        def dfs(r,c):
+            if (
+                grid[r][c] not in visited or 
+                r not in len(grid) or 
+                c not in len(grid[0]) or 
+                grid[r][c] != "1"
+            ):
+                return
+
+            visited.add((r,c))
+            coords = [[0,1], [1,0], [-1, 0], [0,-1]]
+            for dr, dc in coords:
+                dfs(r + dr, r + dc)
+        
+        for r in range(row):
+            for c in range(col):
+                if (grid[r][c] == "1" and (r,c) not in visited):
+                    islands += 1
+                    dfs(r,c)
+
+        
+
+        return islands
+        
+    
+
+IV. Summary
+-----------------------------------------------
+
+1. need more practice but i have the general schema of how to setup a dfs problem now
