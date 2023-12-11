@@ -1,0 +1,72 @@
+I. Conceptual Solution
+-----------------------------------------------
+Absolutely no clue
+
+Solution notes:
+1. use hashmap to match old with new node
+2. create a node with the correct value
+3. From there, go to the current node's first neighbor 
+    a. clone that node
+    b. map old node to new node
+    c. continue to do that for each node and clone each node   
+        i. if we end up with an already cloned node, we can just move on (but maybe need to direct 2 -> 1, undirected graph)
+4. Once all nodes are connected,  
+II. Implementation
+-----------------------------------------------
+Question: How do you do UNDIRECTED graph ( node 1->2 and node 2 -> 1)?
+
+III. Code solutions
+-----------------------------------------------
+
+oldToNew = {} #connect original graph node to clone graph node -> i think this tracks neighbors somehow. 
+#Ohhh, so this is kinda 3 layers deep, NESTED STRUCTURE
+#Structure: {oldNode:newNode} BUT each node is an object in itself with {self.val, self.neighbors = []}
+
+{oldNode:Node{val, []}}
+if node: 
+    return dfs(node)
+else:
+    return None
+
+def dfs(node):
+    if node in oldToNew:
+        return oldToNew[node]
+    copy = Node(node.val)
+
+    oldToNew[node] = copy
+
+    for nei in node.neighbors:
+        copy.neighbors.append(dfs(nei))
+
+    return copy
+
+IV. Summary
+-----------------------------------------------
+
+1. Review template code for DFS/BFS
+
+dfs code:
+
+def dfs(root, target):
+    if root is None: #check if null
+        return None
+    if root.val == target: #check if match
+        return root
+    left = dfs(root.left, target) #traverse down left side always
+
+    if left is not None: #continue traversing left side until null (going as DEEP as possible)
+        return left
+
+    return dfs(root.right, target) #IF you've gone as far left as possible, 
+                                    go to the RIGHT SIDE OF THE DEEPEST LEFT NODE 
+
+def bfs(root):
+    queue = deque([root])
+    while len(queue)>0:
+        node = queue.popleft()
+        for child in node.children:
+            if (child == TARGET_CONDITION):
+                return MATCH_FOUND(child)
+            #else keep doing BFS
+            queue.append(child)
+    return NO_MATCH
