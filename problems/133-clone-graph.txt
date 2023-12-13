@@ -42,8 +42,16 @@ def dfs(node):
 
 IV. Summary
 -----------------------------------------------
-
+Takeaways:
 1. Review template code for DFS/BFS
+2. Understand nodes are their own class so when you reference node, it's not static like array[0].
+    it can have a million things nestedi nside of a single Node object
+
+
+
+
+
+
 
 dfs code:
 
@@ -70,3 +78,5 @@ def bfs(root):
             #else keep doing BFS
             queue.append(child)
     return NO_MATCH
+
+

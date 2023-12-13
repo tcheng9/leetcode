@@ -1,0 +1,74 @@
+Day 1 - 12/13/23
+I. Conceptual Solution
+-----------------------------------------------
+
+Question details:
+1. water has to flow to lower numbers only
+2. can't go diagonally
+3. 
+
+Brute force: graph traversal for each node to see if they can reach the altantic and pacific ocean
+Time:O((n*m)^2)
+
+Clever solution:
+1. start from pacific ocean (top left) and column 0, find which nodes can reach these values.
+    a. essentially, go columnwise/rowwise
+
+
+Result: return an array of coordinates that can reach both the atlantic and pacific ocean
+
+Time: (n*m) 
+
+
+
+
+II. Implementation
+-----------------------------------------------
+
+------> really unsure how to even begin implementing this SO let's start chipping away at this:
+0. setup a res = [] for submission
+1. have rows/cols = len(grid), len(grid[0]) for dfs
+2. has 2 sets for atlantic and pacific oceans. 
+    a. when we do dfs, we can add coordinates to the atl/pcfc sets. 
+        i. this will allow to grow the list of what coordinates actually meet the set. 
+        ii. THEN when we have completed DFS for both atl/pcfc, we can see which values are in both sets and add them together
+
+3. Setup pcfc set -> all row[0][0:], col[:0][0] -> these array slices are wrong but i'm getting the gist -> first row/col
+4. setup atl set -> all row [:-1], all col [:] -> these array slices are wrong but i'm getting the gist -> len(row) -1 and len(col) - 1
+5. Perform dfs to find all values that reach pcfc set
+6. perform dfs to find all values that reach atl set
+    6a. ANY WAY TO MERGE THE 2 SETS TOGETHER?
+
+
+
+DFS:
+1. if (coords out of bounds OR not in ATL/PCFC set OR in visited set ) -> return 
+2. coordinates to search through (up, down, left, right)
+3. for loop through each cardinal direction
+    3a. dfs()
+4. WHAT AM I MISSING? I"M MISSING SOMETHING:
+    a. CONDITIONAL CHECK! the next cell must be smaller than the current cell
+
+Cases to cover:
+1. empty grid
+2. 
+
+
+III. Code solutions
+-----------------------------------------------
+Solution sets essentially:
+1. setup parameters
+2. code dfs
+3. do dfs for both oceans BUT only columns (why?? why not (r,c) at the same time?)
+4. do dfs for both oceans BUT only rows(why???) 
+5. Once you know all coords that can indiviudally reach atl and pcfc SEPARATELY
+    5a. run a for loop across the entire grid to see which coords are in atl and pcfc TOGETHER
+    b. this is where O(n*m) time complexiity comes from OR more clearly O(row*col) run time 
+6. return Result
+
+IV. Summary
+-----------------------------------------------
+Takeaways:
+1. I need to identify all the cases to cover to in DFS
+2. understand the code to do the more elegant boundary check but do it the raw way (r > 0, c > 0, r < len(rows), c < len(cols))
+3. understand why you can just "return None" / "return" and then that's good for DFS. I understand why but i need a more clearer understanding
