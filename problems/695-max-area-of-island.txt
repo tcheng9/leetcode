@@ -1,0 +1,78 @@
+I. Conceptual Solution
+-----------------------------------------------
+1. I think this is like number of islands problem but getting max_area per dfs. 
+2. getting max area is just max(max_area, current_dfs_area) after completing each dfs where grid[r][c] == "1"
+
+II. Implementation
+-----------------------------------------------
+Main function:
+1. set up visited set
+2. setup row, col = len(grid), len(grid[0])
+3. setup max_area = 0
+4. loop through grid
+    4a. if grid[r][c] == '1' #an island of size 1, do dfs
+    
+
+
+DFS function -> (Node, curr_area):
+1. pop back up cases:
+    a. r > len(grid)#checks: if out of bounds of the grid 
+    b. c > len(grid[0]) #checks: if out of bounds of the grid 
+    c. c <0 #checks: if out of bounds of the grid 
+    d. r < 0 #checks: if out of bounds of the grid 
+    e. grid[r][c] != "1" #checks: if not land
+    f. (r,c) in visited #checks: already visited?
+2.setup directions to check [0,1], [1,0], [-1,0], [0,-1]
+3. for each direction, perform dfs
+
+
+
+Questions:
+
+
+Edgecases:
+1. no grid
+2. all 0s
+3. all 1s
+4. non-1s value
+III. Code solutions
+-----------------------------------------------
+My solution (didn't work):
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        visited = set()
+        row, col = len(grid), len(grid[0])
+        
+
+       
+
+        def dfs(r,c):
+            if (
+                r not in range(row) or
+                c not in range(col) or 
+                (r,c) in visited or 
+                grid[r][c] == "0"
+            ):
+                return 0
+            visited.add((r,c))
+            directions = [[1,0], [1,0], [-1,0], [0,-1]]
+
+            for dr,dc in directions:
+                return 1 + dfs(r + dr, c + dc)
+            
+        max_area = 0
+        for r in range(row):
+            for c in range(col):
+                max_area = max(dfs(r,c), max_area)
+
+
+
+        return max_area
+
+
+
+IV. Summary
+-----------------------------------------------
+1. forgot conditons to do dfs in main code (check if island == 1 or islaland not in visited)
+2. didn't accoutn for adding and removing into visited set
+3. forgot to return value in dfs
