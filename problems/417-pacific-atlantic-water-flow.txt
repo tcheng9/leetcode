@@ -72,3 +72,83 @@ Takeaways:
 1. I need to identify all the cases to cover to in DFS
 2. understand the code to do the more elegant boundary check but do it the raw way (r > 0, c > 0, r < len(rows), c < len(cols))
 3. understand why you can just "return None" / "return" and then that's good for DFS. I understand why but i need a more clearer understanding
+
+
+
+
+
+Day 2
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+I. Conceptual Solution
+-----------------------------------------------
+II. Implementation
+-----------------------------------------------
+Main fn:
+1. setup atl/pcfc visited sets
+2. setup rows/cols = len(grid), len(grid[0])
+3. DFS all rows for both visited sets -> [r][0] and [r][-1]
+4. DFS all columns for both visited sets -> [0][c] and [0][c]
+5. GO through grid one last time: for if (r,c) in both sets -> res_array.append([r,c])
+
+
+DFS (row, col, visisted_set, prev_height ):
+1. base cases (to return backup):
+    i. out of bounds ( <0 or >len(grid))
+    ii. [r][c] in visited
+    iii. prev_height < curr_height 
+    #when we do DFS and the next height is greater, that means it can flow down to previous. If curr_height is less than previous, it can't flow that way as it would be "upwards"
+
+2. add [r][c] to visited
+3. coords array to check [[1,0], [0,1], [0, -1], [-1, 0]
+4. recursive dfs
+
+
+Implementation Questions:
+1. How to track the previous height
+
+III. Code solutions
+-----------------------------------------------
+my best guess
+ROWS, COLS = len(heights), len(heights[0])
+        atl, pcfc = set(), set()
+        
+        def dfs(row, col, visited, prev_height):
+            if (
+                row < 0 or 
+                col < 0 or 
+                row == ROWS or 
+                col == COLS or
+                (row,col) in visited or 
+                heights[row][col] < prev_height
+            ):
+                return None
+
+            visited.add((row,col))
+      
+            coords = [[1,0], [0,1], [-1, 0], [1,0]]
+
+            for dr, dc in coords:
+                dfs(row+dr, col+dc, visited, heights[row][col])
+
+        for r in range(ROWS):
+            dfs(r, 0, pcfc, heights[r][0])
+            dfs(r, COLS-1, atl, heights[r][COLS-1])
+
+        for c in range(COLS):
+            dfs(0, c, pcfc, heights[0][c])
+            dfs(ROWS-1, c, atl, heights[ROWS-1][c])
+
+        res = []
+        for r in range(ROWS):
+            for c in range(COLS):
+                if ((r,c) in atl) and ((r,c) in pcfc):
+                    res.append([r,c])
+
+        return res
+
+
+
+
+IV. Summary
+-----------------------------------------------
