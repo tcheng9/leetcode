@@ -1,0 +1,62 @@
+I. Conceptual Solution
+-----------------------------------------------
+My solution (which i kinda remember from a while back):
+DFS through the grid and for "O"s with "O"'s next to them -> have a transitory state "T"
+If "O" is on the border, don't change those
+
+
+Edge Cases to consider:
+1. Board of just 1 "x"
+2. board of just 1 "o"
+3. board of non-x or non-O -> A: always "x" or "o"
+
+4. empty board -> never empty
+
+
+DFS cases to consider:
+1. if row/col == 0
+2. row/col == len(row) or len(col)
+3. if row/col in visited
+
+What is the case in DFS to flip?
+a. if [r][c] == 'O" and r+1 AND r-1 AND c+1 AND r-1 are "X" or "T" (transitionary phase) -> flip
+b. I think you can just do O(n*m) for loop and then do a 1 layer dfs. 
+
+-> if dfs(r+1, c) AND dfs(r-1,c) AND (r, c-1) and (r, c+1) and (other edge cases)== true:
+make grid[r][c] == 't'
+
+THEN later on, iterate through grid again and if you see "T" -> turn to "o"
+
+
+
+Neetcode's conceptual solution:
+---------------------------------
+-> Ts are the border O's THEN change any remaining Os to "X" -> no DFS?
+-> neetcode uses DFS but I feel like you could also double for loop and just check r+1, c+1, r-1, c-1 with a conditional for each cell
+
+
+
+II. Implementation
+-----------------------------------------------
+1. setup row/col
+2. do dfs to get border Os and change to t
+3. do DFS to change Os to Xs
+4. do DFS to change Ts back to Os
+
+DFS function:
+1. check if out of bounds OR in visited OR != o -> If so, return
+2. Otherwise, turn grid[r][c] to X
+3. DFS to move through the board -> not sure why a for loop can't do the same thing
+
+Question: what does this mean "r in [0, ROWS - 1]"? 
+-> does [0, ROWS-1] mean range from 0 TO ROWS-1 or is does it mean "0 or rows-1" values?
+
+III. Code solutions
+-----------------------------------------------
+
+
+
+
+IV. Summary
+-----------------------------------------------
+
