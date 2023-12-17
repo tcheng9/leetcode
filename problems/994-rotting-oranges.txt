@@ -1,0 +1,84 @@
+Day 1 - 12/17/23:
+I. Conceptual Solution
+-----------------------------------------------
+BFS template:
+"def bfs(root):
+    queue = deque([root])
+    visited = set()
+    while len(queue) > 0:
+        node = queue.popleft()
+        for neighbor in get_neighbors(node):
+            if neighbor in visited:
+                continue
+            queue.append(neighbor)
+            visited.add(neighbor)"
+
+            
+Conceptual solution:
+1. keep track of all fresh oranges
+2. track min time to rotten and current bfs time to rotten 
+3. run bfs using all rotten oranges
+4. once bfs is done, count of fresh oranges should == 0 and return min_time
+5. if count of fresh oranges != 0 -> return -1
+6. 
+
+
+Quesitons:
+1. How can there be different rotten orange times IF you run BFS on all(is it all?) given oranges?
+Answer: I think there is only 1 rotten orange at the beginning but there can then be multiple rotten oranges
+
+2. Do you BFS starting from 0,0 or find a rotten orange/
+Answer: you write a bfs function but then use that within other code
+
+Cases:
+1. 4th type of oranges?
+2. 1 rotting orange no frehs oranges
+3. 1 orange only
+4. emptty grid
+
+
+II. Implementation
+-----------------------------------------------
+Things to do:
+1. double for loop to get count of fresh oranges
+2. double for loop to go through grid and find A rotten orange
+3. if rotten orange: perform DFS
+4. always be tracking min and current time to rotten
+5. How to handle -1 or 0 case? -> if it is "-1", are there any cases where it won't be? -> probably not, unreachable orange is unreachable regardless
+6. if curr_count_of_fresh_oranges == 0 -> return min_count
+    a. if curr_count_of_fresh_oranges != 0 -> return -1
+
+
+
+BFS:
+1. start off with [r][c] as root node in the queue
+2. while queue is not empty:
+    a. pop queue (r,c) coordinates
+    b. at grid[r][c], check if it is a fresh orange -> if so -> add coordinates to queue and grid[r][c] rotten
+    c. track current_time_to_rotten += 1
+    d. decrease count of oranges accordingly
+
+
+
+
+
+
+
+III. Code solutions
+-----------------------------------------------
+
+
+
+
+IV. Summary
+-----------------------------------------------
+1. Work on code solution tomorrow
+
+Lingering questions:
+1. Can there be more than 1 rotten orange at time = 0?
+Answer: If so, just run through the entire 1 time to and add all rotten oranges to the queue for BFS
+
+2. (Ties into lingering question 1), if you simultaneously perform BFS on all rotten oranges -> can there be different min times?
+Answer: I'm not entirely sure. 
+
+--------------------------END OF DAY 1 ------------------------------
