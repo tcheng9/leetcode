@@ -82,3 +82,172 @@ Answer: If so, just run through the entire 1 time to and add all rotten oranges 
 Answer: I'm not entirely sure. 
 
 --------------------------END OF DAY 1 ------------------------------
+
+
+
+--------------------------START OF DAY 2---------------------------
+12/18/23
+I. Conceptual Solution
+-----------------------------------------------
+BFS template:
+"def bfs(root):
+    queue = deque([root])
+    visited = set()
+    while len(queue) > 0:
+        node = queue.popleft()
+        for neighbor in get_neighbors(node):
+            if neighbor in visited:
+                continue
+            queue.append(neighbor)
+            visited.add(neighbor)"
+
+            
+Conceptual solution:
+1. keep track of all fresh oranges
+2. track min time to rotten and current bfs time to rotten 
+3. run bfs using all rotten oranges
+4. once bfs is done, count of fresh oranges should == 0 and return min_time
+5. if count of fresh oranges != 0 -> return -1
+6. 
+
+
+Quesitons:
+1. How can there be different rotten orange times IF you run BFS on all(is it all?) given oranges?
+Answer: I think there is only 1 rotten orange at the beginning but there can then be multiple rotten oranges
+
+2. Do you BFS starting from 0,0 or find a rotten orange/
+Answer: you write a bfs function but then use that within other code
+
+Cases:
+1. 4th type of oranges?
+2. 1 rotting orange no frehs oranges
+3. 1 orange only
+4. emptty grid
+
+
+II. Implementation
+-----------------------------------------------
+Things to do:
+1. double for loop to get count of fresh oranges
+2. double for loop to go through grid and find A rotten orange
+3. if rotten orange: perform DFS
+4. always be tracking min and current time to rotten
+5. How to handle -1 or 0 case? -> if it is "-1", are there any cases where it won't be? -> probably not, unreachable orange is unreachable regardless
+6. if curr_count_of_fresh_oranges == 0 -> return min_count
+    a. if curr_count_of_fresh_oranges != 0 -> return -1
+
+BFS template:
+"def bfs(root):
+    queue = deque([root])
+    visited = set()
+    while len(queue) > 0:
+        node = queue.popleft()
+        for neighbor in get_neighbors(node):
+            if neighbor in visited:
+                continue
+            queue.append(neighbor)
+            visited.add(neighbor)"
+
+BFS:
+1. start off with [r][c] as root node in the queue
+2. while queue is not empty:
+    a. pop queue (r,c) coordinates
+    b. at grid[r][c], check if it is a fresh orange -> if so -> add coordinates to queue and grid[r][c] rotten
+    c. track current_time_to_rotten += 1
+    d. decrease count of oranges accordingly
+
+
+Actual code steps:
+1. setup min_days
+2. Iterate through grid to get count of total oranges
+3. row, col = len(grid), len(grid[0])
+4. write BFS(r,c)
+5. iterate through grid and run BFS on each r,c 
+    a. 
+(BFS is done)
+6. How to determine if -1 or min_count?
+if (bfs returns (0 count, X time) THEN  update time)
+if (bfs returns (>0 count, X time) THEN return -1)
+
+
+----------BFS function:----------------
+1. what need to do BFS do?
+    a. BFS over coords
+    - add r,c to visited set
+    - reduce fresh oranges by length of the quue today.
+    b. add new r,c (up, down, left, right) where grid[r][c] == 1
+    c. queue.append new coords
+    d. after each FOR LOOP 
+        i. update curr_days
+    e. after WHILE loop:
+        i. return a pair of values (days_to_rotten, remaining_oranges)
+
+IN MAIN FUNCTION, you iterate through entire grid and run BFS on  grid given conditions
+
+QUESTION: is rotting neighbors at this iteration or i+1 iteration?
+VERBALLY, at this iteration, check ALL rotting oranges (r,c) -> if adjacent is a "1" (fresh orange) 
+-> 
+
+Note: IF YOU HAVE FRESH ORANGES TO A ROTTEN ORANGE, IT TAKES 1 DAY TO GET ROTTEN. SO:
+ -> DAY 1, YOU FIND FUTURE ROTTEN ORANGES
+ -> DAY 2, YOU TURN THEM INTO ROTTEN ORANGES (UPDATE "1" -> "2")
+
+III. Code solutions
+-----------------------------------------------
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        min_days = 0
+        row, col = len(grid), len(grid[0])
+        oranges_count = 0
+        
+        #get count of oranges
+        for r in range(row):
+            for c in range(col):
+                if grid[r][c] == 1:
+                    oranges_count += 1
+
+        visited = set()
+
+        #setup bfs
+        def bfs(r,c):
+            queue = deque((r,c))
+            visited = set()
+            curr_days = 0
+            while len(queue)> 0:
+                visited.add((r,c))
+                nr,nc = queue.popleft()
+                coords = [[1,0], [0,1], [-1,0], [0,-1]]
+                for dr,dc in coords:
+                    queue.append(r+dr, c+dc)
+                curr_days += 1
+
+            min_days = min(min_days, curr_days)
+
+
+Conclusion: didn't solve but figured out how to better identify WHEN to use BFS, not just implementing through rote memorization
+
+IV. Summary
+-----------------------------------------------
+Takeaways:
+1. Understood better how to flexibly setup up BFS itself AND how to adjust it to the question at hand
+2. Things I missed after revieiwng  Neetcode solution:
+    a. when you get total count of fresh oranges, you also need to get all initial rotten oranges
+    b. when checking new oranges in all 4 directions, you need these conditions:
+        i. in bounds
+        ii. grid[row][col] 
+            -> if either of these conditions, CONTINUE (not return)!
+3. Got most of the steps/code figured out BUT ran out of time at the dr/dc directional checks
+neetcode wrote:
+"                for dr, dc in directions:
+                    row, col = r + dr, c + dc
+                    # if in bounds and nonrotten, make rotten
+                    # and add to q
+                    if (
+                        row in range(len(grid))
+                        and col in range(len(grid[0]))
+                        and grid[row][col] == 1
+                    ):
+                        grid[row][col] = 2
+                        q.append((row, col))
+                        fresh -= 1
+"
