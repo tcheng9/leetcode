@@ -1,0 +1,47 @@
+I. Conceptual Solution
+-----------------------------------------------
+? notes:
+1. is it possible to complete all courses -> prerequisites must be cleared
+-> impossible if there is a "cycle" in the list -> course 0 requires 1 and course 1 requires course 0
+Conceptual solution:
+1. DFS
+2. preMap = {crs: prereqs array, []}
+3. perform DFS on the preMap 
+    a. if array is empty, you can complete that course
+    b. if array is not empty, perform DFS on that course to determine if it is possible.
+
+4. How to identify cycle?
+    a. use a visited set -> set that tracks course we're DFSing on currently
+    b. if crs is in visited set -> it's a loop -> return false/course cannot be 
+II. Implementation
+-----------------------------------------------
+1. Setup hashmap 
+2. (prework) map all courses to their prerequisites
+3. Go through each key in the dict and perform DFS I think 
+DFS on the key of an dictionary -> if DFS an empty list -> empty the prereq list + return
+
+DFS
+1. DFS through each key in the dict
+2. If you can DFS through the dict[key]'s values WITHOUT returning false then you are successful
+3. If you DFS and course in visited set already RETURN false
+
+III. Code solutions
+-----------------------------------------------
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        _dict = collections.defaultdict(list)
+        for i in prerequisites:
+            _dict[i[0]] = i[1]
+
+        print(_dict)
+
+        return 1
+
+
+
+IV. Summary
+-----------------------------------------------
+
+Takeaways:
+1. Feeling pretty sick today. Gonna work on this more tmrw
