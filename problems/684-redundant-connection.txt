@@ -1,0 +1,82 @@
+I. Conceptual Solution
+-----------------------------------------------
+1. Brute force O(n^2) solution: dfs
+
+2. O(n) solution -> union find
+
+Union find:
+1. Add a edge so that n nodes = n edges causes the loop
+
+Conceptual solution:
+1. Iterate through array of connections
+2. track their rank in another array (size of graph essentially)
+3. Add smaller graph to larger graph, if equal it doesn't matter
+4. continually do this until 1 graph
+
+--Union completed---
+
+--Find portion----
+
+
+2 arrays:
+1. parents array -> for Ith node, who is the parent
+2. rank array -> size of graph
+
+II. Implementation
+-----------------------------------------------
+Implementation steps:
+1. create an array that tracks parent for each Ith node
+2. create an array that tracks the rank of each Ith node (size)
+
+2 parts for union find -> union and find
+
+Union algo:
+
+Find algo:
+1. given a node n 
+def find(n):
+    p = par[n] -> p is equal to parent's array node 
+    while p != par[p]: -> par[n] != par[p], what's par[p]?
+        par[p] = par[par[p]]
+        p = par[p]
+    return p
+
+
+ex: 
+n = 0, par = [0,1,2,3]
+par[n] = par[0] = 0
+
+par[p] = par[par[n]] = par[0]
+
+
+2. while  
+III. Code solutions
+-----------------------------------------------
+
+def find(n):
+    p = par[n]
+    while p != par[p]:
+        par[p] = par[par[p]]
+        p = par[p]
+    return p
+
+def 
+
+
+IV. Summary
+-----------------------------------------------
+
+Takeaways:
+1. Union fn makes sense.  
+2. Find fn doesn't make sense
+    a. uses path compression.
+        i. How would I normally do this?
+            -> while parent at current Ith node, search the array and find the parent of Ith node
+            -> ex: par = [0,1,2,3,4,5,6] and i = 5, par[i] is 4 so go to parent 4 -> par[4] = par[3] and so on until par[0] = 0 
+            -> par[par[p]] -> search grandparent. Essentially, you do the parent check twice in a row
+                a. This is an optimization because it pops up quicker. If there is a grandparent and great grandparent, it'll keep going up
+                b. if there isn't a grandparent, the Ith node will check itself twice WHICH IS NOT AN ISSUE AS IT'LL JUST CYCLE THE NODE ITSELF 
+                    -> ex if greatgrandparent/grandparent: [0,1,2,3] -> i = 3 THEN par[[par[i]] goes o 2 -> 1 -> 0 in 1 check
+                    -> ex: if no grandparent: [1,1,1,1,1,1,1,] -> i = 2 SO par[par[i]] IS par[2] = 1 then par[1] = 1 -> SO it cycles itself
+            
+

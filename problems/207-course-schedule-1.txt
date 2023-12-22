@@ -25,19 +25,60 @@ DFS
 2. If you can DFS through the dict[key]'s values WITHOUT returning false then you are successful
 3. If you DFS and course in visited set already RETURN false
 
+DFS steps:
+1. Take in a course
+2. for that course -> figure out the prereqs requires (dfs(course) -> hashmap[course] )
+    a. Question: How to individually clear the prereq?
+        i. ANSWER: you could use a deque and popleft() BUT I would just do end of array to front of array -> arr[-1]
+    b.   add curent course into visisted set
+    c. if course already in visited -> return false
+    d. if course not in visited -> continue w/ what i want to do
+    e. if dict[prereq] requires more prereqs -> perform DFS
+
+
+Cases to consider:
+1. current array empty
+2. current array not empty
+3. loop / impossible to get courses done
+4. 
+
+Question: How to check if an array is empty?
+Answer: 
+    a. if not arr
+    b. if len(arr) == 0 -> can provide unintended results
 III. Code solutions
 -----------------------------------------------
 
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         _dict = collections.defaultdict(list)
+        #Setup dict for course
         for i in prerequisites:
             _dict[i[0]] = i[1]
 
-        print(_dict)
+        visited = set()
+        #setup DFS
+        def dfs(crs):
+            if crs in visited:
+                return false
 
-        return 1
+            
+            visited.add(crs)
+            new_crs = _dict[crs][-1]
+            if not _dict[crs]: #if array is not empty
+                for i in _dict[crs]:
+                    dfs(crs)
+    #NEEEEEEED TO WRITE CODE THAT POPS THE CRS OUT OF THE ARRAY AT _DICT[KEYS] 
+    #GIVEN STURCTURE OF {KEY: [CRS1, CRS2, CRS3]}
 
+
+        for i in _dict.keys():
+            if (dfs(i)):
+                return true
+            
+
+
+        #Iterate through the entire hashmap and DFS through course
 
 
 IV. Summary
@@ -45,3 +86,93 @@ IV. Summary
 
 Takeaways:
 1. Feeling pretty sick today. Gonna work on this more tmrw
+
+------------Day 2------------------
+I. Conceptual Solution
+-----------------------------------------------
+
+II. Implementation
+-----------------------------------------------
+
+
+III. Code solutions
+-----------------------------------------------
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        _dict = collections.defaultdict(list)
+        #Setup dict for course
+        for i in prerequisites:
+            _dict[i[0]] = i[1]
+
+        visited = set()
+        #setup DFS
+        def dfs(crs):
+            if crs in visited:
+                return false
+
+            
+            visited.add(crs)
+            new_crs = _dict[crs][-1]
+            if not _dict[crs]: #if array is not empty
+                for i in _dict[crs]:
+                    dfs(crs)
+    #NEEEEEEED TO WRITE CODE THAT POPS THE CRS OUT OF THE ARRAY AT _DICT[KEYS] 
+    #GIVEN STURCTURE OF {KEY: [CRS1, CRS2, CRS3]}
+
+
+        for i in _dict.keys():
+            if (dfs(i)):
+                return true
+            
+
+
+        #Iterate through the entire hashmap and DFS through course
+
+
+Question: Neetcode does preMap[crs] == [] ->WHEN valid. How/Why can he do this?
+ANSWER: 
+
+Neetcode solution:
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        _dict = collections.defaultdict(list)
+        #Setup dict for course
+        for i in prerequisites:
+            _dict[i[0]].append(i[1])
+        print(_dict)
+
+
+        #
+        visited = set()
+        #setup DFS
+        def dfs(crs):
+            if crs in visited:
+                return false
+            #if prereqs are empty / met THEN return true to continue DFS on the next course
+            if _dict[crs] == []:
+                return True
+            
+            visited.add(crs)
+        
+            for i in _dict[crs]:
+                if not dfs(i):
+                    return False
+
+            visited.remove(crs)
+            _dict[crs] = []
+            return True
+            
+    # #NEEEEEEED TO WRITE CODE THAT POPS THE CRS OUT OF THE ARRAY AT _DICT[KEYS] 
+    # #GIVEN STURCTURE OF {KEY: [CRS1, CRS2, CRS3]}
+
+
+        for i in range(numCourses):
+            if not dfs(i):
+                return False
+
+        return True
+
+IV. Summary
+-----------------------------------------------
+
+Takeaways: Pretty confusing problem. I'm not entirely sure
