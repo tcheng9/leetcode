@@ -1,0 +1,87 @@
+I. Conceptual Solution
+-----------------------------------------------
+DFS -> O(mn^2)
+Conceptual solution steps:
+1. BFS -> reverse your thinking -> BFS from gates to individual cells
+2. Simultaneous BFS on all gates
+3. Path collision -> find 1 dist away, 2 dist away, 3 dist away OR already in visited don't DFS
+    a. ie 2 and 2 collides in the video, don't BFS since that position is visited already. 
+        i. path is filled in visited AND the filled in values are always the minimum BECAUSE YOU GO FROM THE GATES OUTWARD
+II. Implementation
+-----------------------------------------------
+Implementation steps:
+1. get rows/columns
+2. visited set
+3. setup a queue 
+
+Phase 1: Scan for gates
+1. Double for loop to find grid positions of GATES
+2. When found, add them to the the queue
+
+Setting up BFS:
+1. get visited set
+2. while queue is not empty:
+    3. for i range(len(queue_currently))
+    4. check adjacent nodes
+    5. For each adjacent node, (IF NOT VISITED), mark that grid with distance += 1
+    6. add those new nodes into the queue
+
+3.  
+
+"def bfs(root):
+    queue = deque([root])
+    visited = set()
+    while len(queue) > 0:
+        node = queue.popleft()
+        for neighbor in get_neighbors(node):
+            if neighbor in visited:
+                continue
+            queue.append(neighbor)
+            visited.add(neighbor)"
+
+
+Implementation question:
+1. How to get neighbors in a graph? +1, -1 positions?? -> Yes, exactly
+III. Code solutions
+-----------------------------------------------
+
+rows, cols = len(rooms), len(rooms[0])
+visited = set()
+queue = deque()
+
+#get all gates
+for r in range(rows):
+    for c in range(cols):
+        if (list[r][c] == 0):
+            queue.append((r,c))
+            visited.add((r,c)) #Don't forget to add to visited set, this is more unique to graph problems than tree problems.
+#bfs
+traveled = 0
+while queue:
+    for i in range(len(queue)):
+        r,c = queue.popleft()
+        
+        directions = [[1,0], [0,1], [-1,0], [0,-1]]
+        for dr,dc in directions:
+            new_r, new_c = dr+r, c+dc
+            if ((min(new_r,new_c) <0) or 
+                new_r == ROWS or
+                new_c == COLS or
+                (new_r,new_c) in visited or
+                rooms[new_r][new_c] == -1
+            ):
+                continue
+            visited.add((r+dr, c+dc))
+            queue.append([r+dr, c+dc])
+            room[r][c] = dist
+
+    
+    dist += 1
+
+
+IV. Summary
+-----------------------------------------------
+
+Takeaways: 
+1. Getting better at setting up graph problem solution. However, still struggling when I get to the BFS/DFS
+because that is the part where I need to deal with unique conditions/steps
