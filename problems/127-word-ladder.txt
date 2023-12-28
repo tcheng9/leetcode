@@ -1,0 +1,70 @@
+I. Conceptual Solution
+-----------------------------------------------
+Conceptual solution steps:
+1. Graph problem, beginWord node ---Shortest diff---> endWord node
+2. SOLUTION: Graph of adjacency list between words 
+3. brute force method is O(n^2*m) but it is too slow
+    a. optimizaiton is to look at len(list) instead of len(word) due to question constraints
+4. Use BFS to find shortest path (more efficient than DFS when it comes to shortest length i think)
+
+
+
+
+II. Implementation
+-----------------------------------------------
+Neetcode steps:
+1. Build adjacency list for all potential combinations -> 
+    a. "hot" to "*ot", "h*t", "ho* 
+    b. "dot" to "*ot", "d*t", "do*"
+    c. create an adjacency 
+2. Create a hashmap where {pattern:[words that have that pattern]}
+    a. ie {"*ot": [hot, dot, lot]}
+    b. Time complexity: n*m^2
+3. BFS through adjacency list and then find min matches
+n = length of array (I think)
+m = length of a particular word
+
+4. 
+
+III. Code solutions
+-----------------------------------------------
+
+Neetcode:
+if endWord in wordList:
+    return 0
+
+#create adjacency list
+nei = collections.defaultdict(list)
+wordList.append(beginWord)
+for word in wordList: #go through words in given array
+    for j in range(len(word)):#go through letters(?) in the word -> yes it is so u can replace each letter in the word (ie hot -> *ot, h*t, ho*)
+        pattern = word[:j] + "*" + word[j+1:]
+        nei[pattern].append(word)
+
+#Setting up BFS
+visit = set([beginWord]) #visited set with initial word (so you don't repeat start)
+q = deque([beginWord])
+
+res = 1 #res is the counter like in other problems
+
+
+while q: 
+    #basic BFS setup
+    for i in range(len(q)):
+        word = q.popleft()
+       
+        if word == endWord:  #unique case: You find your desired endWord so return result        
+            return res
+        for j in range(len(word)): #Reconstruct all possible patterns of current word with 1 wildcard character (like you did for adjacency list)
+            pattern = word[:j] + "*" + word[j+1:]
+
+            ############TOUGHEST PART####################
+            for neiWord in neiPattern[pattern]: #For each nieghbor node (TRICKY: NEIGHBOR NODES ARE ALL NODES WITH THE SAME MATCHING WILDCARD CHARACTER/PHRASE IE "*OT" OR "P*G" ETC")
+                if neiWord not in visited: #If neighbor is not visited already, BFS further down that layer
+                    visit.add(neiWord):
+                    q.append(neiWord)
+    res += 1 #increase counter for depth by 1 after each for loop (which is consider 1 graph layer)
+
+return 0  #if BFS does not return the match (word == endWord) then no word was found and return 0
+IV. Summary
+-----------------------------------------------
