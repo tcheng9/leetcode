@@ -1,0 +1,79 @@
+I. Conceptual Solution
+-----------------------------------------------
+Contraint: Trip has to be in alphabetical order as best solution
+
+Conceptual solution steps:
+1. Adjacency list -> hashmap{source location: destination}
+    a. Have it in sorted order which can save provide alphabetical order/lexigraphical order
+    b. sort input ["JFK", "SFO] ["JFK", "ATL"], ["ORD", "XYZ"]
+        i. Sort array by input[0]s and then by input[1]s if there are ties
+            -> QUESTION: Doesn't python do this by itself?
+
+2. Travel through adjacency list and track the results
+3. example: JFK -> ATL -> JFK -> SFO -> ATL ->SFO
+4. How to terminate trip?
+    a. len(tickets) == len(res) + 1
+
+
+-Case to consider: When using the solution above, 
+what happens if it is actually the secondary alphabetical order destination that creates the correct path/itinerary?
+Answer: Backtrack -> if (such condition) -> return and don't remove from the adjacency list
+
+
+O(V+E)^2
+
+II. Implementation
+-----------------------------------------------
+
+
+III. Code solutions
+-----------------------------------------------
+adj = {src: [] for src, dst in tickets}
+
+tickets.sort() #Python sorts by pair -> aka [a,b], [a,c] -> sorting in python will check a =a THEN b < c SO b goes first in array
+
+for src, dst in tickets:
+    adj[src].append(dst)
+
+#DFS
+res = ["JFK"]
+def dfs(src):
+    #SOLUTION CONDIITON (ALWAYS GOES AT THE TOP IN THESE LC PROBLEMS)
+    if len(res) == len(ticekts) + 1:
+        return True
+
+    #If invalid path
+    if src not in adj:
+        return False
+
+    #Update adjacency list's list (AKA hashmap's list of values == hashmap.values())
+    temp = list(adj[src]) #temp variable to mimic the adjacency list SO we can manipulate the list as needed
+    for i, v in enumerate(temp):
+        adj[src].pop(i)
+        res.append(v)
+
+        if dfs(v): return True #DFS through current node
+
+        adj[src].insert(i,v)
+        res.pop()
+
+        return False
+    dfs("JFK")
+    return res
+
+    
+
+IV. Summary
+-----------------------------------------------
+Takeaways:
+1. What is array.insert(i,v)?
+    a. i = index to insert element at (0-indexed)
+    b. v = value to insert at that index
+    c. Time complexity: O(n)
+
+2. Very confused. Many cases/conditions to adjust for.
+3. What confuses me?
+    a. Backtracking the result
+    b. Lexigraphical order is done very slyly in the problem BUT you could figure it out in an interview(i think?)
+    c. Using a templist to dfs through
+    d. figure out termination case is not obvious (len(tickets) == len(res) + 1) #1 being the given value - "JFK"
