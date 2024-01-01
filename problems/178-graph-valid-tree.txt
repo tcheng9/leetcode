@@ -1,0 +1,95 @@
+I. Conceptual Solution
+-----------------------------------------------
+Question notes:
+1. given N nodes from 0 -> n-1 and a list of undirected edges.
+2. write a fn to check whether these edges make up a valid terminate
+
+Question: 
+1. What is the properties of a tree?
+    a. loop
+    b. No disconnected nodes
+2. Are trees allowed to have 3 or more children?
+    a. I think so. Only binary search trees are limited to 2 children
+
+Conceptual solution:
+1. DFS -> check if number of visited nodes == number of nodes visited in DFS
+2. Visited set -> checks if we visit all nodes within 1 DFS and thus, an actual tree or not
+3. Track previous node to detect a loop -> invalid or valid current tree
+
+Case:
+1. Empty tree
+
+II. Implementation
+-----------------------------------------------
+1. setup visited set
+2. setup up count for DFS 
+3. Setup previous
+4. create DFS
+5. DFS through nodes
+6. Return true/false depending on count of DFS depth
+Edgecase:
+1. Only 1 node, return true
+
+
+--------------
+DFS:
+1. Base case:
+    a. if node is null return
+
+2. Recursive steps:
+    a. look into the array and dfs deeper down the nodes
+    b. increase count of dfs nodes visited
+    c. Add node to visited set 
+    d. update prev to be this node -> TO DETECT CYCLE. HOW?
+        i. ADDITIONAL CONDITIONAL CASE: IF NEW NODE IN VISITED SET + NEW_NODE NOT PREV (TO AVOID FALSE POSITIVES)
+
+    
+3. Calling recursion
+    a. recursively call dfs(node_children)
+
+--------------
+
+How to use DFS?
+1. for par, child in edges:
+    a. DFS(par)
+
+III. Code solutions
+-----------------------------------------------
+Neetcode solution:
+
+
+#Edgecase: No nodes
+if not n:  #No nodes at all -> empty graph is technically true
+    return True 
+
+#Build adjacaency list
+adj = {i:[] for i in range(n)} #settng up a dictionary with each value being an empty array -> {"key": []}
+
+for n1, n2 in edges:
+adj[n1].append(n2)
+adj[n2].append(n1) -> #NOTE: UNDIRECTED GRAPH MEANS THAT CHILD NODE CAN BE THE PARENT NODE (depending on which way you do the dfs in this problem)
+
+
+visit = set()
+def dfs(i, prev):
+    if i in visit: #already visited -> cycle detected
+        return False     
+    
+    visit.add(i)
+    for j in adj[j]:
+        if j == prev: 
+            continue
+
+        if not dfs(j,i): #loop detected
+            return False
+
+    return True
+
+return dfs(0, -1) and if n == len(visit) 
+IV. Summary
+-----------------------------------------------
+
+Takeaways
+1. Some of these graph questions at the end of the neetcode list is like when I started leetcoding
+    I have no clue what to do at all
+2. 
