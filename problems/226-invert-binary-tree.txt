@@ -1,3 +1,4 @@
+INITIAL SOLUTION - DIDN'T WORK
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if not root:
@@ -17,3 +18,30 @@ class Solution:
         dfs(root.right)
         
         return root
+
+
+OHHHHHHHHHH, WHOOPS I DIDN'T RECURSIVELY TRAVERSE THE NODES
+
+
+
+UPON REFLECTION, I REALIZED MY DFS WASN'T ACTUALLY BEING RECURSIVE. IT WAS JUST 1 CALL
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return None
+
+        def dfs(n):
+            if not n:
+                return None
+
+
+            tmp = n.left
+            n.left = n.right
+            n.right = tmp
+            
+            dfs(n.left)
+            dfs(n.right)
+        dfs(root)
+        
+        return root
+
