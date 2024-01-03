@@ -1,0 +1,19 @@
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return None
+
+        def dfs(n):
+            if not n:
+                return None
+
+
+            tmp = n.left
+            n.left = n.right
+            n.right = tmp
+            
+        
+        dfs(root.left)
+        dfs(root.right)
+        
+        return root

@@ -1,0 +1,48 @@
+THIS PROBLEM IS BASED ON DJIKSTRA'S ALGORITHM
+USES MINHEAP PROBLEM
+
+I. Conceptual Solution
+-----------------------------------------------
+Unique notes:
+1. Swim infinite distance in 0 time ( 1-> 1 -> 1->1, no time)
+2.  Care about elevation
+3. 
+
+Conceptual solution steps:
+1. Djjikstra's algorithm
+2. MINHEAP
+
+---------------------
+Djikstra's algorithm Notes:
+-Algorithm to find the shortest path of a graph based on the weights of vertices (lines)
+-
+
+
+
+
+How a (min)heap is represented in python:
+1. Heapify function on an array 
+2. what heap functions are there?
+3. 
+
+
+--------------------
+
+
+II. Implementation
+-----------------------------------------------
+
+
+III. Code solutions
+-----------------------------------------------
+
+
+
+
+IV. Summary
+-----------------------------------------------
+
+Takeways:
+1. No clue what djikstra's algorithm is code-wise (need to spend an hr studying it at another time)
+
+2. Minheap, I know what a min/maxheap is but need to refresh memory about python builtin operation and time/space complexiities
