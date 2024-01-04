@@ -1,0 +1,75 @@
+I. Conceptual Solution
+-----------------------------------------------
+Trying to solve this on my own:
+1. should probly recurse on itself
+
+Steps I think:
+1. base case: if no root: return None
+
+Recursive operations: 
+2. depth counter
+
+
+Recursive call:
+Recursive on left side of tree and recurse on right side of the tree
+
+II. Implementation
+-----------------------------------------------
+
+
+III. Code solutions
+-----------------------------------------------
+My solution - worked
+DFS
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        
+        if not root:
+            return 0
+        
+
+
+        def dfs(n,depth):
+        #base case
+            if not n:
+                return depth
+
+
+            #recursive operations
+            #depth += 1 #can fit this within the recursion
+
+            #recursive call
+            
+            return max(dfs(n.left, depth + 1),dfs(n.right, depth + 1))
+
+            
+        return dfs(root,0)
+
+
+I have 10 mins left, let's see if I can do BFS solution right
+BFS solution - yay remembered how to do BFS by myself!
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        
+        if not root:
+            return 0
+        q = deque([root])
+        count = 0
+        while q:
+            for i in range(len(q)):
+                node = q.popleft()
+
+                if node.left:
+                    q.append(node.left)
+
+                if node.right:
+                    q.append(node.right)
+            count += 1
+
+        return count
+
+IV. Summary
+-----------------------------------------------
+Takeaways:
+1. My biggest mistake in this problem and the invert binary tree is not handling the recursive call properly
+2. Yay, I remember how to do BFS
