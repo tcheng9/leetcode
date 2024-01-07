@@ -1,0 +1,55 @@
+I. Conceptual Solution
+-----------------------------------------------
+Brute force:
+From each node in main tree, DFS the subtree to check as well (O(main_tree*subtree))
+
+Neetcode solution:
+
+
+Edgecases:
+1. both trees are null -> both are same
+2. 2 trees are the same structure BUT 1 tree has an extra child
+3. is a null subtree the same as a non-empty tree -> a in the main tree, if a node's child is null then that counts as the null tree
+
+II. Implementation
+-----------------------------------------------
+0. Solve base cases:
+    -> if subRoot is None and root is not None:
+        return True
+    -> if root is None and subRoot is not None -> return False
+
+1. write a dfs helper function -> to check given a node s and node t to check if they are both equal
+2. on the main function, recurse isSubTree where we check using sameTree
+
+
+DFS function
+Base case:
+1. if not node: return None/ False
+
+2. if node.val != subRoot 
+2.Recursive operations
+if 
+
+
+3. Recursive call
+-------------
+1. edge cases
+2. dfs helper
+3. main funciton recursion using dfs helper to check for same tree
+
+III. Code solutions
+-----------------------------------------------
+
+-> edgecases?
+
+2. dfs
+    a. if s and t 
+
+IV. Summary
+-----------------------------------------------
+Takeaways: 
+
+a. What time complexity is recursion?
+b. the goal of sametree is to aim for a False value, not a true value
+    -> the recursion dfs will check if both trees are same tree and if so to return those values -> if not, just return False
+c. too sleepy to think about this
