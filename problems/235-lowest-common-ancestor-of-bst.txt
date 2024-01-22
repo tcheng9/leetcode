@@ -1,0 +1,37 @@
+I. Conceptual Solution
+-----------------------------------------------
+Notes:
+1. Node can be descendent of itself
+2. BST rules to follow
+
+Conceptual steps:
+1. 
+
+
+Edgecase: root node is a LCA
+
+II. Implementation
+-----------------------------------------------
+
+
+III. Code solutions
+-----------------------------------------------
+
+cur = root
+while cur:
+    if p.val > cur.val and q.val > cur.val:
+        cur = cur.right
+    elif p.val < cur.val and q.val < cur.val:
+        cur = cur.left
+    else:
+        return cur
+
+Summary: You just need to look for where the split occurs which is when q is on one side and p is on the other. Otherwise, if both p and q are on the left or right, traverse that side.
+
+IV. Summary
+-----------------------------------------------
+Takeaways:
+1. confused
+2. warming back up so I just looked at the solution outright. i was pretty confused.
+3. Learn for loop/while loop DFS, not just recursive DFS
+4. Don't understand the dfs done here. It is not recursive
