@@ -1,0 +1,128 @@
+I. Conceptual Solution
+-----------------------------------------------
+? notes:
+1. A "good" node is if from the path root to X, there are no nodes with a greater value than current node X
+    -> so compare the current node with the max value of the DFS path
+    -> a "good node" is if max_path < current_node_X 
+
+II. Implementation
+-----------------------------------------------
+Things to do:
+1. Setup a counter for good nodes
+2. DFS function
+3. Consider edge cases? -> 1 node, no nodes
+4. track max val of path
+
+Things to do inside of DFS:
+1. Traverse nodes
+2. if current_node > max_val_path : counter +=1
+3. if current_node < max_val_path -> don't do anything
+4. dfs left
+5. dfs right
+6. Recursively pass in max(current_node, max_val_path)
+
+My implementation:
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        
+    
+
+        def dfs(node, path_max, good):
+            if not node:
+                return 0 #Can't return 0, because when you do dfs(node, val) -> you are expecting an int
+            # print(node.val)
+            # print(path_max)
+            # print(good)
+            if node.val >= path_max:
+                good = good + 1
+                # print('greater than')
+          
+         
+
+            return dfs(node.left, max(node.val, path_max), good) + dfs(node.right, max(node.val, path_max), good)
+            
+    
+        return dfs(root, root.val, 0)
+
+III. Code solutions
+-----------------------------------------------
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        def dfs(node, maxVal):
+            if not node:
+                return 0
+
+            res = 1 if node.val >= maxVal else 0
+            maxVal = max(maxVal, node.val)
+            res += dfs(node.left, maxVal)
+            res += dfs(node.right, maxVal)
+            return res
+
+        return dfs(root, root.val)
+
+
+Merging neetcode + my solution:
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        
+    
+
+        def dfs(node, path_max, good):
+            if not node:
+                return 0 #Can't return 0, because when you do dfs(node, val) -> you are expecting an int
+            # print(node.val)
+            # print(path_max)
+            # print(good)
+            if node.val >= path_max:
+                good = good + 1
+                # print('greater than')
+          
+         
+            good += dfs(node.left, max(node.val, path_max), good)
+            good += dfs(node.right, max(node.val, path_max), good)
+            
+            return good
+            
+    
+        return dfs(root, root.val, 0)
+
+
+
+
+
+IV. Summary
+-----------------------------------------------
+Takeaways:
+1. Understand how to sum using recursion better. I had a similar implementation but couldn't DFS for the
+
+
+Q2. Given: 
+"""  
+
+            if node.val >= path_max:
+                res = 1
+            else:
+                res = 0
+                # print('greater than')
+          
+         
+            res += dfs(node.left, max(node.val, path_max))
+            res += dfs(node.right, max(node.val, path_max))
+            
+            return res
+"""
+    Q: Understand why can you dfs first then return only at the very end?
+        a. Well instead of summing, he has a counter than adds 1 depending on the individual check for that current node
+        when I was doing if (nodel.val >= path_max): good += good + 1, I was accidentally summing good by itself "good = good + dfs(x,y, good).
+            i. you can do good = dfs(leftside) then good = dfs(rightside) -> Indirectly, this is a counter because i'm never adding good + good, it's always good + 1 and being tracked in the dfs. 
+
+        b. Why can I dfs twice and then just return good?
+            i. Recursion lets you rerun a function over and over. In neetcode's solution, he runs and runs (kinda like looping) until he hits the "not node -> return 0" THEN he returns the total. 
+                -> This works because he is only adding by 1 SO it gives a good nodes count without repeated addition
+         

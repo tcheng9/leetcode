@@ -16,7 +16,14 @@ Conceptual solution steps:
 Djikstra's algorithm Notes:
 -Algorithm to find the shortest path of a graph based on the weights of vertices (lines)
 -
-
+The algorithm
+1.C1reate a set “seen” to keep track of visited nodes.
+2.Create a dictionary “parentsMap” for parents map to reconstruct the path after the execution of the algorithm.
+3.Create a dictionary “nodeCosts” for keeping track of minimum costs for reaching different nodes from the source node, and initialize the cost for the source node as 0.
+4.Create a priority queue data structure (in python use heapq module with list) and push a tuple (0, source node) in the Priority Queue (heap), representing (the cost to the node from the source node, the node itself).
+5.loop inside a while loop until there is nothing in the priority queue. while looping, pop the node with minimum cost.
+6.loop through all of the pop node’s adjacent nodes. if they have not been explored before, and have total costs minimum than the cost in the “nodeCosts” add them too to the priority queue and update the “parentsMap”.
+7. Reconstruct the path from the “parentsMap”.
 
 
 
@@ -46,3 +53,4 @@ Takeways:
 1. No clue what djikstra's algorithm is code-wise (need to spend an hr studying it at another time)
 
 2. Minheap, I know what a min/maxheap is but need to refresh memory about python builtin operation and time/space complexiities
+
