@@ -1,0 +1,81 @@
+I. Conceptual Solution
+-----------------------------------------------
+Neetcode steps:
+1. Get an upper and lower bound
+2. As you traverse left, you update lowerbound
+3. As you traverse right, you update right bound 
+
+Q: What is the return value in the DFS? T/F?
+II. Implementation
+-----------------------------------------------
+Things to do:
+1. Setup -inf and inf
+2. Account for base case?
+
+Things to do in DFS:
+1. If not root -> return
+2. Pass in root, leftBound, Upperbound
+3. if !(leftbound < root.val < upperbound) return False
+4. traverse left tree
+5. traverse right tree
+6. return True #since the case above didn't go off
+
+III. Code solutions
+-----------------------------------------------
+My solution:
+lower = float('-inf')
+        upper = float('inf')
+
+        def dfs(node, lower, upper):
+            if not node:
+                return
+
+         
+            if (node.val < lower) or (node.val > upper):
+                return False
+
+            # what values to update lower and upper to?
+
+            dfs(node.left, lower, node.val) 
+            dfs(node.right, node.val, upper)
+
+            return True
+
+        return dfs(root, lower, upper)
+
+
+My code + neetcode solution:
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        
+        lower = float('-inf')
+        upper = float('inf')
+
+        def dfs(node, lower, upper):
+            if not node:
+                return True
+
+         
+            if (lower >= node.val) or (node.val >= upper):
+                return False
+
+            # what values to update lower and upper to?
+
+            return dfs(node.left, lower, node.val) and dfs(node.right, node.val, upper)
+
+            
+
+        return dfs(root, lower, upper)
+
+
+Mistakes:
+1. Didn't consider = to cases
+2. if not Node: return True ! i did "if not Node: return" which returns None. We only want T/F for this problem
+
+Note: you can do lower < x.val < upper for a 3 way comparison
+Q: I wonder why this doesn't encounter "=" error I got
+A: my original solution excludes equality so lower > node.val or node.val > upper never trigger when the values are 2, 2, 2. 
+For my original code to return False, it explicitly has to be differnet values ie 2,5,7
+
+IV. Summary
+-----------------------------------------------
