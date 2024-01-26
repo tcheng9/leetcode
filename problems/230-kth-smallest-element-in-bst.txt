@@ -1,0 +1,72 @@
+I. Conceptual Solution
+-----------------------------------------------
+Neetcode implmentation:
+1. sort in an array
+2. inorder traversal
+
+
+Iterative solution:
+1. use a stack to contain previous nodes to pop back up to
+2. start at root but don't visit it
+3. add null to a stack but once it is null -> pop a node off the stack (instead of adding it)
+4. When we pop, we are actually processing it this time around
+5. go the right child (after we pop BECAUSE we want to go in order)
+6. 
+
+II. Implementation
+-----------------------------------------------
+Prereqs to figure out:
+1. Inorder traversal (left subtree -> root -> right subtree)
+2. preorder traversal: (root node -> left -> right )
+3. preorder traversal: (left -> right -> root)
+
+
+Inorder traversal dfs:
+1. dfs(root.left) -> will recursively go on the LEFT SIDE until it hits a RETURN 
+2. current node -> process itself
+3. dfs(root.right)? -> will recursively go on the RIGHT side until it hits a return
+
+
+
+Things to do in code:
+1. setup an array
+2. dfs
+4. return arr[k-1] #due to 1 indexed
+Things to do in DFS:
+1. dfs left
+2. append val to array
+3. dfs right
+
+Note: if not node -> return None or append value?
+
+
+#Edgecases:
+1. 1 node only -> return arr[k] (assuming K = 1)
+2. no nodes only -> return None
+
+
+Ooh, gotta return arr[k-1]
+III. Code solutions
+-----------------------------------------------
+Wow solution actually ran and worked on first try!
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        res = []
+
+        def dfs(node):
+            if not node:
+                return None
+
+            dfs(node.left)
+            res.append(node.val)
+            dfs(node.right)
+        dfs(root)
+        return res[k-1]
+
+
+IV. Summary
+-----------------------------------------------
+Takeaways:
+1. Review/Learn when to use Preorder/Inorder/Postorder traversal.
+2. Learn how to code Preorder/Inorder/Postorder traversal
+3. Review recursion
