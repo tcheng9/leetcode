@@ -15,6 +15,14 @@ node that splits left and right, preorder and inorder will be at the same index 
 as a result, you can use the ame methodology as above to identify:
     - the next BRANCH split from the inorder traversal (using the preorder traversal to identify the root node)
     - the 
+
+Tricks to remember for tmrw:
+1. Preorder provides the split
+2. Inorder provides a left and right subtree at the split given in preorder
+3. Figure out how to partition array properly to split left and right subtrees in the array
+4. How do you split array properly -> need to check for off-by-1 errors
+
+
 II. Implementation
 -----------------------------------------------
 
