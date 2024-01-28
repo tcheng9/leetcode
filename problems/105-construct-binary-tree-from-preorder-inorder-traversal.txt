@@ -1,0 +1,32 @@
+I. Conceptual Solution
+-----------------------------------------------
+2 facts to remember:
+a. First value in preorder is always the root
+b. First value in inorder is always the left node
+
+Q: so what happens when you see an already visited node in the opposite list 
+Every value of the left of the ROOT node (you have to find out from preorder) 
+    -> is on the left side of the tree. Every value of the root node is on the right side
+    -> SO YOU CAN PARTITION Preorder
+
+Q: So from the partitions, how do you build the left side of the tree but further down it has a left and right child node?
+A: Once you are done doing the traversal from the given 
+node that splits left and right, preorder and inorder will be at the same index ->
+as a result, you can use the ame methodology as above to identify:
+    - the next BRANCH split from the inorder traversal (using the preorder traversal to identify the root node)
+    - the 
+II. Implementation
+-----------------------------------------------
+
+Thigns to do: 
+
+
+
+III. Code solutions
+-----------------------------------------------
+
+
+
+
+IV. Summary
+-----------------------------------------------
