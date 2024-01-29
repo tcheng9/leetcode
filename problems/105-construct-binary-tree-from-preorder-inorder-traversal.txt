@@ -27,14 +27,58 @@ II. Implementation
 -----------------------------------------------
 
 Thigns to do: 
+1. Construct nodes
+2. Split preorder array
+3. Split inorder array
+4. dfs??
+    i. Not sure if you need to dfs -> you def need to iterate over the array
+
+Iterate over inorder array:
+    1. Craft root node
+    2. Find root node in preorder array
+        i. Create left side of tree from [i : root] and right side from [root : end of array]
+    3. dfs -> go down and create aall the left side nodes
+        i. Return back up if Null node
+    4.  dfs again on rigth side to create right side of tree
+
+Quesitons:
+Q1. How to slice visited nodes already? 
+A1: Do arr[i: root node] and [root node : end_array]
+
+Q2: 
+
+DFS function:
+1. 
 
 
 
 III. Code solutions
 -----------------------------------------------
 
+My solution:
+-> No clue how to Code
+
+Neetcode solution:
+
+#recursive algo
+
+def buildTree(...):
+    if not preorder or not inorder:
+        return None
+
+    root = TreeNode(preorder[0])
+    ##Neetcode uses inorder.index(preorder[0]) -> BUT i'ma use a for loop since I've never seen index
+    for i in inorder: 
+        if inorder[i] == preorder[0]:
+            match = preorder[0]
+    root.left = self.buildTree(preorder[1: mid + 1], inorder[:mid]) #mid + 1 because it is end of array indexing is non-inclusive
+    root.right = self.buildTree(preorder[mid+1:], inorder[mid+1:])
+
+    
 
 
 
 IV. Summary
 -----------------------------------------------
+Takeaways: 
+1. What does array.index() do?
