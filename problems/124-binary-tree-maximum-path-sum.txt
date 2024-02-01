@@ -43,3 +43,6 @@ return res[0]
 
 IV. Summary
 -----------------------------------------------
+Takeaways:
+1. How do I want to structure my daily LC problem to solve hards? 
+I will need to allocate more time to LC or split solving it into days 
