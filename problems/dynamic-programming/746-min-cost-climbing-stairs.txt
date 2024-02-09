@@ -1,0 +1,23 @@
+I. Conceptual Solution
+-----------------------------------------------
+
+II. Implementation
+-----------------------------------------------
+
+
+III. Code solutions
+-----------------------------------------------
+
+Neetcode solution:
+cost.append(0)
+for i in range(len(cost) - 3, -1 , -1): #reverse order iteration
+    cost[i] = min(cost[i]+ cost[i+1], cost[i] + cost[i+2]) 
+
+return min(cost[0], cost[1]) #because there is a guarantee of being able to take 1 or 2 steps at the Started
+#otherwise, you would have to deal with the edgecase of 1 step only
+
+
+
+
+IV. Summary
+-----------------------------------------------

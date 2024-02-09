@@ -1,0 +1,43 @@
+Template to structure my notes:
+I. Conceptual Solution
+-----------------------------------------------
+
+DP steps:
+1. SOlve base case then work our way up -> bottom up approach
+2. Setup an array called DP to use
+3. Note: In this problem, end of n and n-1 is always 1,1 differnet ways to get to 5
+Question: Not sure if this is the case for all problems that have a similar setup?
+4. Go from 5 -> 4 -> 3 -> 2 -> 1 -> 0
+5. Solution for 3 is built on solution of 4 and 5
+step3 = step4 + step 5
+Step 2 = step 3 + step 4
+Step 1 = step 2 + step 3
+step 0 = step 1 + step 2
+
+Note: this uses O(n) memory -> since we use an array 
+BUT you can use O(1) memory by using 2 variables that track n + 1 and n + 2 steps
+
+
+
+II. Implementation
+-----------------------------------------------
+
+
+III. Code solutions
+-----------------------------------------------
+Neetcode solution:
+one, two = 1,1
+
+for i in range(n-1):
+    temp = one #Way to store value when updating one and two -> SO you don't lose original value of one
+    one = one + two #Add 2 previous values -> one "Step" forward" -> to a new "unseen" value
+    two = one  #Two becomes one which is the already "seen" value
+
+return one
+
+IV. Summary
+-----------------------------------------------
+Takeaways:
+Questions
+1. What is memoization?
+1a. How to do it in general?
