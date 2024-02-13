@@ -1,0 +1,65 @@
+I. Conceptual Solution
+-----------------------------------------------
+? Notes:
+1. Similar to house robber 1 but houses are cyclic. 
+2. Can reuse the solution from house-robber-i on this problem
+3. As a result of cyclicity, we cannot rob the first and last house -> this is the caveat 
+
+Dealing with caveat:
+1. Run house robber 1 function on everything except: 
+---->(1) subarray that doesn't include arr[0] and a second chekc for 
+---->(2) subarray that doesn't include arr[-1]
+
+
+Edge case:
+nums[0] is the biggest house by itself
+II. Recursive subproblem identification
+-----------------------------------------------
+
+
+
+III. Implementation
+-----------------------------------------------
+
+Trying to remebmer house robber 1 solution from my own memory:
+
+rob1, rob2 = 0,0 #first 2 houses
+
+for i in range(len(nums)):
+    temp = max(rob1 + nums[i], rob2) #get max of (1) first house, skip the middle one, and steal the 3rd one OR (2) just rob middle house
+    rob1 = rob2 #move 1 house forward
+    rob2 = temp #This is (eventually) the sum of decisions you made previously
+    ##Question: what is rob2? Is this the house that you can't rob??
+    ##Temp: is the choice you make, rob1 +
+
+return rob2 #the maximum value
+
+
+IV. Code solutions
+-----------------------------------------------
+
+Code solution:
+
+
+def main(...):
+    return max(nums[0], self.helper(nums[1:]), self.helper(nums[:-1]))
+
+
+def helper(nums):
+    #Code solution for house robber 1
+    rob1, rob2 = 0,0 #first 2 houses
+
+    for i in range(len(nums)):
+        temp = max(rob1 + nums[i], rob2) #get max of (1) first house, skip the middle one, and steal the 3rd one OR (2) just rob middle house
+        rob1 = rob2 #move 1 house forward
+        rob2 = temp #This is (eventually) the sum of decisions you made previously
+       
+
+    return rob2 #the maximum value
+
+
+V. Summary
+-----------------------------------------------
+
+
+
