@@ -1,0 +1,79 @@
+I. Explanation of solution
+-----------------------------------------------
+a. Need to deal with double digit numbers
+b. Each number can be a decisin tree -> picking a single or double digit number
+c. If the number is bigger than 26 -> you know it's not a a double digit number so you don't have to recursive
+d. You can boundary check starting digits.
+    1. 0 is invalid
+    2. 1 - any 2nd digit is fine (10 - 19)
+    3. 2 - can only go from 0 - 6 (20-26)
+e. Brute force is to go through each digit and do the (d.) chheck for every possible subcombination
+
+More optimal solution:
+a. Subproblem - when we work through a digit, we then ask what possible combinations are next in the tree
+(ie '1234" -> 'x234' -> 'xx34')
+b. . Cache -> from each position. when you are at position i TO end of string, save how many combinations there are
+c. theoretically, you don't need an array because dp[i] = dp[i+1] + dp[i+2] 
+    so you can just use 2 variables
+        1. HOW DOES THIS WORK? HOW CAN YOU KNOW i+1 and i+2 before you know i?
+
+-Basecase/Edgecase: empty string -> just return 1
+
+Recursive function cases to consider:
+1. if letter position is cached already
+2. string starts with 0
+3. if letter position + 1 
+
+II. Explaining the recursive subproblme
+-----------------------------------------------
+-2 different decisions at each number -> single digit or double digit number
+
+
+III. Pseudocode
+-----------------------------------------------
+
+IV. Code solutions
+-----------------------------------------------
+Recursive solution (w/ caching):
+dp = {len(s) : 1}
+def dfs(i):
+    if i in dp:
+        return dp[i]
+    if s[i] == "0"
+        return 0
+    res = dfs(i+1)
+    if (i+1 < len(s) and (s[i] === 1 or s[i] == "2" and s[i+1] in "0123456")):
+        res += dfs(i+2)
+    dp[i] = res
+    return res
+return dfs(0)
+
+
+Dynamic programming solution:
+dp = {len(s) : 1}
+for i in range(len(s) -1 , -1 , -1):
+    if s[i] == "0":
+        dp[i] = 0
+    else:
+        dp[i] = dp[i+1]
+
+    if (i+1 < len(s) and (s[i] === 1 or s[i] == "2" and s[i+1] in "0123456")):
+        res += dfs(i+2):
+        dp[i] += dp[i+2]
+return dp[0]
+
+
+V. Summary
+-----------------------------------------------
+Takeaways:
+'''
+Note: Note about caching solutions, caching solutions don't necessarily employ
+a clever trick to solve the problem. You can still have to arather complex solution
+BUT by caching, you save RUN TIME COMPLEXITY so be aware of this 
+BECAUSE this is something you don't directl see. 
+YOU HAVE TO GO THROUGH THE PROBLEM AND THEN IT WILL OPTIMIZE ITSELF 
+BECAUSE IT WILL SEE THE SAME THINGS MULTIPLE TIMES
+'''
+
+1. new thing I learned you can do: s[i+1] in "1233456" 
+    -> python can sift through and get check for in ints
