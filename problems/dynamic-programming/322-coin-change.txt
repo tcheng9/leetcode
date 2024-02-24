@@ -1,0 +1,47 @@
+0. Question notes:
+-----------------------------------------------
+
+
+I. Explanation of solution
+-----------------------------------------------
+DFS solution:
+1. Go through decision tree with N starting children (N = len(arr)) -> (x^N time)
+2. root = target amount THEN dfs until you get 0 based on ur choices
+3. track min conditions
+
+
+II. Explaining the recursive subproblme
+-----------------------------------------------
+Recursive subproblem:
+1. if u have a specific amount left to get to 0, you can save how many coins u need
+    a. if u have amount left = 1, u know only 1 coin of value 1 is the only possile solution
+
+2. DP implmentation (Top down memozation):
+    a. memomize solution
+
+Bottom up notes: 
+3. DP - Bottom up
+    a. start at 0 ---Increase up ---> how many coins it takes to get to X amount of coins
+
+DP[0] = 0
+DP[1] = 1
+DP[2] = 1 + DP[1] 
+DP[3] = 1
+DP[4] = 1
+DP[5] = 1
+DP[6] = 2
+DP[7] = 1 + DP[6] = 3 #1 possible soluttion, is it the min solution?
+Let's check:
+1 + DP[4] = 1 + 1 = 2 
+1 + DP[3] = 2 
+1 + DP[2] = 3
+
+
+III. Pseudocode
+-----------------------------------------------
+
+IV. Code solutions
+-----------------------------------------------
+
+V. Summary
+-----------------------------------------------

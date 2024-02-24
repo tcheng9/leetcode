@@ -25,6 +25,9 @@ IV. Summary
 
 Dynamic programming version:
 
+0. Question notes:
+-----------------------------------------------
+
 I. Explanation of solution
 -----------------------------------------------
 
